@@ -1,0 +1,41 @@
+.navbar {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #401f00;
+  height: 5rem;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+.navcenter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+}
+
+a {
+  text-decoration: none;
+  margin: 20px;
+  padding: 20px;
+  color: whitesmoke;
+  font-size: 24px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  cursor: pointer;
+}
+
+a:hover {
+  text-decoration: none;
+  margin: 20px;
+  padding: 20px;
+  color: whitesmoke;
+  font-size: 24px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  transition: 0.1s;
+  cursor: pointer;
+}
