@@ -1,11 +1,10 @@
 import React from "react";
-import "./body.css";
-import bottlewcookie from "./image/bottlewcookie (1).png";
-import bottlewnap from "/Users/anduk/Desktop/react/cookiejar/src/components/Body/image/bottlewnap.png";
-import cookie from "/Users/anduk/Desktop/react/cookiejar/src/components/Body/image/cookie.png";
-import jartrio from "/Users/anduk/Desktop/react/cookiejar/src/components/Body/image/jar trio.png";
+import "./Home.css";
+import bottlewnap from "./image/bottlewnap.png";
+import cookie from "./image/cookie.png";
+import jartrio from "./image/jar trio.png";
 
-function Body() {
+function Home() {
   return (
     <>
       <div className="body">
@@ -90,4 +89,4 @@ function Body() {
   );
 }
 
-export default Body;
+export default Home;
