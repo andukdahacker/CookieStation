@@ -7,6 +7,8 @@ import Shelf from "./Pages/Shelf";
 import Login from "./Pages/Login";
 import Contact from "./Pages/Contact";
 import SignUp from "./Pages/SignUp";
+import Jar from "./Pages/Jar";
+import Cookie from "./Pages/Cookie";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 export default function App() {
@@ -21,6 +23,8 @@ export default function App() {
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/contact" component={Contact} />
+            <Route exact path="/shelf/:id" component={Jar} />
+            <Route exact path="/cookies/:id" component={Cookie} />
           </Switch>
         </Router>
         <Footer />

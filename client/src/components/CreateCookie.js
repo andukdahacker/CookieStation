@@ -3,23 +3,32 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import TextError from "./TextError";
 import * as Yup from "yup";
 import "../styles/Createcookie.css";
-import { Link } from "react-router-dom";
-
-const initialValues = {
-  messageTitle: "",
-  messageContent: "",
-};
-
-const onSubmit = (values) => {
-  console.log("Form data", values);
-};
-
-const validationSchema = Yup.object({
-  messageTitle: Yup.string().required("Required"),
-  messageContent: Yup.string().required("Required"),
-});
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
 function CreateCookie() {
+  const { id } = useParams();
+  const URL = `http://localhost:5000/shelf/${id}`;
+  const initialValues = {
+    cookieTitle: "",
+    cookieContent: "",
+  };
+
+  const onSubmit = (values) => {
+    axios
+      .post(URL, {
+        cookieTitle: values.cookieTitle,
+        cookieContent: values.cookieContent,
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const validationSchema = Yup.object({
+    cookieTitle: Yup.string().required("Required"),
+    cookieContent: Yup.string().required("Required"),
+  });
   return (
     <>
       <Formik
@@ -30,25 +39,24 @@ function CreateCookie() {
         <div className="maincreatecookie">
           <div></div>
           <Form>
-            <label htmlFor="messageTitle">Message Title</label>
-            <Field type="text" id="messageTitle" name="messageTitle" />
-            <ErrorMessage name="messageTitle" component={TextError} />
+            <label htmlFor="cookieTitle">Cookie Title</label>
+            <Field type="text" id="cookieTitle" name="cookieTitle" />
+            <ErrorMessage name="cookieTitle" component={TextError} />
             <label htmlFor="selectJar">Choose a Jar</label>
             <Field as="select" id="selectJar" name="selectJar">
               <option value="jar1">Jar 1</option>
               <option value="jar2">Jar 2</option>
             </Field>
             <ErrorMessage name="selectJar" component={TextError} />
-            <label htmlFor="messageContent">Write your message</label>
+            <label htmlFor="cookieContent">Write your message</label>
             <Field
               as="textarea"
-              id="messageContent"
-              name="messageContent"
+              id="cookieContent"
+              name="cookieContent"
             ></Field>
-            <ErrorMessage name="messageContent" component={TextError} />
+            <ErrorMessage name="cookieContent" component={TextError} />
             <button type="submit">Create</button>
           </Form>
-          <Link to="/shelf"> To your shelf! </Link>
         </div>
       </Formik>
     </>

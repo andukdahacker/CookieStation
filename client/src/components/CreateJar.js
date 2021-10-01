@@ -15,6 +15,7 @@ function CreateJar() {
       .catch((err) => {
         console.log(err);
       });
+    history.push("/");
   };
 
   const validationSchema = Yup.object({

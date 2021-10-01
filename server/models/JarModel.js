@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { cookieSchema } from "./CookieModel.js";
 
 const jarSchema = new mongoose.Schema(
   {
@@ -6,6 +7,7 @@ const jarSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    cookies: [cookieSchema],
   },
   { timestamps: true }
 );
