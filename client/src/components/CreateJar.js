@@ -5,6 +5,7 @@ import TextError from "../components/TextError";
 import bottlewnap from "../image/bottlewnap.png";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
+import "../styles/Createjar.css";
 
 function CreateJar() {
   const initialValues = { jarName: "" };

@@ -10,7 +10,13 @@ export const cookieSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    jar: { type: mongoose.Schema.Types.ObjectId, ref: "Jars" },
+    cookieImage: {
+      type: String,
+    },
+    jarID: {
+      type: String,
+    },
+    read: Boolean,
   },
   { timestamps: true }
 );

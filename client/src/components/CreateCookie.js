@@ -4,25 +4,28 @@ import TextError from "./TextError";
 import * as Yup from "yup";
 import "../styles/Createcookie.css";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 
 function CreateCookie() {
   const { id } = useParams();
+  const history = useHistory();
   const URL = `http://localhost:5000/shelf/${id}`;
   const initialValues = {
     cookieTitle: "",
     cookieContent: "",
+    cookieImage: "",
   };
 
   const onSubmit = (values) => {
-    axios
-      .post(URL, {
-        cookieTitle: values.cookieTitle,
-        cookieContent: values.cookieContent,
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const data = new FormData();
+    data.append("cookieTitle", values.cookieTitle);
+    data.append("cookieContent", values.cookieContent);
+    data.append("cookieImage", values.cookieImage);
+    axios.post(URL, data).catch((error) => {
+      console.log(error);
+    });
+
+    history.push(`/shelf/${id}`);
   };
 
   const validationSchema = Yup.object({
@@ -31,34 +34,36 @@ function CreateCookie() {
   });
   return (
     <>
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={onSubmit}
-      >
-        <div className="maincreatecookie">
-          <div></div>
-          <Form>
-            <label htmlFor="cookieTitle">Cookie Title</label>
-            <Field type="text" id="cookieTitle" name="cookieTitle" />
-            <ErrorMessage name="cookieTitle" component={TextError} />
-            <label htmlFor="selectJar">Choose a Jar</label>
-            <Field as="select" id="selectJar" name="selectJar">
-              <option value="jar1">Jar 1</option>
-              <option value="jar2">Jar 2</option>
-            </Field>
-            <ErrorMessage name="selectJar" component={TextError} />
-            <label htmlFor="cookieContent">Write your message</label>
-            <Field
-              as="textarea"
-              id="cookieContent"
-              name="cookieContent"
-            ></Field>
-            <ErrorMessage name="cookieContent" component={TextError} />
-            <button type="submit">Create</button>
-          </Form>
-        </div>
-      </Formik>
+      <div className="maincreatecookie">
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={onSubmit}
+        >
+          {({ setFieldValue }) => (
+            <Form>
+              <label htmlFor="cookieTitle">Cookie Title</label>
+              <Field type="text" id="cookieTitle" name="cookieTitle" />
+              <ErrorMessage name="cookieTitle" component={TextError} />
+              <ErrorMessage name="selectJar" component={TextError} />
+              <label htmlFor="cookieContent">Write your message</label>
+              <Field
+                as="textarea"
+                id="cookieContent"
+                name="cookieContent"
+              ></Field>
+              <ErrorMessage name="cookieContent" component={TextError} />
+              <input
+                type="file"
+                onChange={(event) => {
+                  setFieldValue("cookieImage", event.target.files[0]);
+                }}
+              />
+              <button type="submit">Create</button>
+            </Form>
+          )}
+        </Formik>
+      </div>
     </>
   );
 }

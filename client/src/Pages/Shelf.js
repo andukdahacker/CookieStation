@@ -4,7 +4,6 @@ import Modal from "react-modal";
 import CreateJar from "../components/CreateJar";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import bottlewcookie from "../image/bottlewcookie (1).png";
 
 Modal.setAppElement("#root");
 
@@ -26,6 +25,7 @@ function Shelf() {
         setError(true);
       });
   }, []);
+
   return (
     <>
       <div className="mainshelf">
@@ -41,9 +41,11 @@ function Shelf() {
         ) : (
           data.map((val, id) => {
             return (
-              <Link to={`/shelf/${val._id}`} key={id}>
-                {val.jarName}
-              </Link>
+              <div>
+                <Link to={`/shelf/${val._id}`} key={id}>
+                  {val.jarName}
+                </Link>
+              </div>
             );
           })
         )}

@@ -1,5 +1,6 @@
 import { JarModel } from "../models/JarModel.js";
 import { CookieModel } from "../models/CookieModel.js";
+import cloudinary from "../utils/cloudinary.js";
 
 export const getJars = async (req, res) => {
   JarModel.find({}, (err, result) => {
@@ -28,8 +29,23 @@ export const getJarData = async (req, res) => {
       console.log("Error:", error);
       res.status(500);
     }
+    res.status(200);
     res.send(result);
   });
+};
+
+export const deleteJar = async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    await JarModel.findByIdAndRemove(id, (err, result) => {
+      if (err) return console.log(err);
+      return;
+    }).clone();
+    res.status(200);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const createCookie = async (req, res) => {
@@ -37,16 +53,78 @@ export const createCookie = async (req, res) => {
     const newCookieTitle = req.body.cookieTitle;
     const newCookieContent = req.body.cookieContent;
     const id = req.params.id;
+    const file = req.file.path;
+    const imageUploadResult = await cloudinary.v2.uploader.upload(file, {
+      public_id: `${id}_cookie`,
+      width: 200,
+      crop: "fill",
+    });
+
     const cookie = new CookieModel({
       cookieTitle: newCookieTitle,
       cookieContent: newCookieContent,
+      cookieImage: imageUploadResult.secure_url,
+      jarID: id,
+      read: false,
     });
-    const jar = await JarModel.findById(id);
+
+    const jar = await JarModel.findById(id).clone();
     jar.cookies.push(cookie);
+
     await jar.save();
     await cookie.save();
+    res.status(200);
   } catch (error) {
     res.status(500);
+    console.log(error);
+  }
+};
+
+export const updateCookieToRead = async (req, res) => {
+  try {
+    const cookieID = req.body.id;
+    const cookieUpdate = req.body.read;
+    const jarID = req.params.id;
+
+    await JarModel.findById(jarID, (err, result) => {
+      if (err) return console.log(err);
+      result.cookies.id(cookieID).read = cookieUpdate;
+      result.save();
+    }).clone();
+
+    await CookieModel.findById(cookieID, (err, result) => {
+      if (err) return console.log(err);
+      result.read = cookieUpdate;
+      result.save();
+    }).clone();
+
+    res.status(200);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteCookie = async (req, res) => {
+  try {
+    const cookieID = req.params.id;
+    const cookie = await CookieModel.findById(cookieID, (err, cookie) => {
+      if (err) return console.log(err);
+      return cookie.jarID;
+    }).clone();
+
+    JarModel.findById(cookie.jarID, (err, jar) => {
+      if (err) return console.log(err);
+      jar.cookies.remove(cookie);
+      jar.save();
+    });
+
+    CookieModel.findByIdAndRemove(cookieID, (err, result) => {
+      if (err) return console.log(err);
+      return;
+    });
+
+    res.status(200);
+  } catch (error) {
     console.log(error);
   }
 };

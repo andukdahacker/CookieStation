@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../styles/Cookie.css";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import axios from "axios";
 
 function Cookie() {
@@ -8,11 +8,13 @@ function Cookie() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
   const { id } = useParams();
-  const cookieDataAPI = `http://localhost:5000/cookies/${id}`;
+  const getCookieDataAPI = `http://localhost:5000/cookies/${id}`;
+  const deleteCookieDataAPI = `http://localhost:5000/shelf/cookies/delete/${id}`;
+  const history = useHistory();
 
   useEffect(() => {
     axios
-      .get(cookieDataAPI)
+      .get(getCookieDataAPI)
       .then((response) => {
         setCookieData(response.data);
         setIsLoading(false);
@@ -21,7 +23,12 @@ function Cookie() {
         console.log(err);
         setError(true);
       });
-  }, [cookieDataAPI]);
+  }, [getCookieDataAPI]);
+
+  const deleteCookie = () => {
+    axios.delete(deleteCookieDataAPI);
+    history.push("/shelf");
+  };
 
   return (
     <div className="maincookie">
@@ -31,8 +38,15 @@ function Cookie() {
         <div>Error...</div>
       ) : (
         <div>
-          <h1>{cookieData.cookieTitle}</h1>
-          <span>{cookieData.cookieContent}</span>
+          <div className={``}>
+            {/* {cookieData.filter((cookie) => {cookieData.read == "false"}).map((cookie) => {})} */}
+            <h1>{cookieData.cookieTitle}</h1>
+            <span>{cookieData.cookieContent}</span>
+          </div>
+          <div className={``}>
+            <img src={cookieData.cookieImage} alt="img" />
+          </div>
+          <button onClick={() => deleteCookie(id)}>Delete</button>
         </div>
       )}
     </div>
