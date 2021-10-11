@@ -16,7 +16,7 @@ export const createJar = async (req, res) => {
     const newJar = req.body.jarName;
     const jar = new JarModel({ jarName: newJar });
     await jar.save();
-    res.status(200).json(jar);
+    res.status(200).send(jar);
   } catch (error) {
     res.status(500).json({ error: error });
   }
@@ -42,7 +42,7 @@ export const deleteJar = async (req, res) => {
       if (err) return console.log(err);
       return;
     }).clone();
-    res.status(200);
+    res.status(200).send("jar deleted");
   } catch (error) {
     console.log(error);
   }
@@ -73,7 +73,7 @@ export const createCookie = async (req, res) => {
 
     await jar.save();
     await cookie.save();
-    res.status(200);
+    res.status(200).send(cookie);
   } catch (error) {
     res.status(500);
     console.log(error);
@@ -98,7 +98,7 @@ export const updateCookieToRead = async (req, res) => {
       result.save();
     }).clone();
 
-    res.status(200);
+    res.status(200).send("cookie updated");
   } catch (error) {
     console.log(error);
   }
@@ -123,7 +123,7 @@ export const deleteCookie = async (req, res) => {
       return;
     });
 
-    res.status(200);
+    res.status(200).send("cookie deleted");
   } catch (error) {
     console.log(error);
   }

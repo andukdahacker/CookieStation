@@ -41,7 +41,7 @@ function Shelf() {
         ) : (
           data.map((val, id) => {
             return (
-              <div>
+              <div key={id}>
                 <Link to={`/shelf/${val._id}`} key={id}>
                   {val.jarName}
                 </Link>

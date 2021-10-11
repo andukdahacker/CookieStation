@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import TextError from "../components/TextError";
@@ -9,14 +9,19 @@ import "../styles/Createjar.css";
 
 function CreateJar() {
   const initialValues = { jarName: "" };
+  const [isLoading, setIsLoading] = useState(false);
 
-  const onSubmit = (values) => {
-    axios
+  const onSubmit = async (values) => {
+    setIsLoading(true);
+    await axios
       .post("http://localhost:5000/shelf", { jarName: values.jarName })
+      .then((res) => {
+        setIsLoading(false);
+        history.push(`/shelf/${res.data._id}`);
+      })
       .catch((err) => {
         console.log(err);
       });
-    history.push("/");
   };
 
   const validationSchema = Yup.object({
@@ -45,7 +50,9 @@ function CreateJar() {
                 name="jarName"
               />
               <ErrorMessage name="jarName" component={TextError} />
-              <button type="submit">Next</button>
+              <button type="submit">
+                {isLoading ? <div>Loading</div> : <div>Next</div>}
+              </button>
             </Form>
           </div>
         </div>

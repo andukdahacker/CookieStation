@@ -26,7 +26,9 @@ function Cookie() {
   }, [getCookieDataAPI]);
 
   const deleteCookie = () => {
-    axios.delete(deleteCookieDataAPI);
+    axios.delete(deleteCookieDataAPI).catch((err) => {
+      console.log(err);
+    });
     history.push("/shelf");
   };
 

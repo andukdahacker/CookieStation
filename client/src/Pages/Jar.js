@@ -41,9 +41,16 @@ function Jar() {
       });
   };
 
-  const deleteJar = () => {
-    axios.delete(jarDataAPI);
-    history.push("/shelf");
+  const deleteJar = async () => {
+    try {
+      await axios.delete(jarDataAPI).catch((err) => {
+        console.log(err);
+      });
+
+      history.push("/shelf");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

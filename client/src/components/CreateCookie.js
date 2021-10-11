@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import TextError from "./TextError";
 import * as Yup from "yup";
@@ -9,6 +9,7 @@ import { useParams, useHistory } from "react-router-dom";
 function CreateCookie() {
   const { id } = useParams();
   const history = useHistory();
+  const [isLoading, setIsLoading] = useState(false);
   const URL = `http://localhost:5000/shelf/${id}`;
   const initialValues = {
     cookieTitle: "",
@@ -17,13 +18,20 @@ function CreateCookie() {
   };
 
   const onSubmit = (values) => {
+    setIsLoading(true);
     const data = new FormData();
     data.append("cookieTitle", values.cookieTitle);
     data.append("cookieContent", values.cookieContent);
     data.append("cookieImage", values.cookieImage);
-    axios.post(URL, data).catch((error) => {
-      console.log(error);
-    });
+    axios
+      .post(URL, data)
+      .then((res) => {
+        setIsLoading(false);
+        history.push(`/cookies/${res.data._id}`);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
     history.push(`/shelf/${id}`);
   };
@@ -59,7 +67,9 @@ function CreateCookie() {
                   setFieldValue("cookieImage", event.target.files[0]);
                 }}
               />
-              <button type="submit">Create</button>
+              <button type="submit">
+                {isLoading ? <div>Loading</div> : <div>Create</div>}
+              </button>
             </Form>
           )}
         </Formik>
