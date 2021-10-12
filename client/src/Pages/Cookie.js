@@ -26,10 +26,16 @@ function Cookie() {
   }, [getCookieDataAPI]);
 
   const deleteCookie = () => {
-    axios.delete(deleteCookieDataAPI).catch((err) => {
-      console.log(err);
-    });
-    history.push("/shelf");
+    setIsLoading(true);
+    axios
+      .delete(deleteCookieDataAPI)
+      .then((res) => {
+        setIsLoading(false);
+        history.push(`/shelf/${res.data.jarID}`);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -48,7 +54,9 @@ function Cookie() {
           <div className={``}>
             <img src={cookieData.cookieImage} alt="img" />
           </div>
-          <button onClick={() => deleteCookie(id)}>Delete</button>
+          <button onClick={() => deleteCookie(id)}>
+            {isLoading ? <div>Loading</div> : <div>Delete</div>}
+          </button>
         </div>
       )}
     </div>

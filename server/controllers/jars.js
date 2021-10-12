@@ -42,6 +42,7 @@ export const deleteJar = async (req, res) => {
       if (err) return console.log(err);
       return;
     }).clone();
+
     res.status(200).send("jar deleted");
   } catch (error) {
     console.log(error);
@@ -57,7 +58,6 @@ export const createCookie = async (req, res) => {
     const imageUploadResult = await cloudinary.v2.uploader.upload(file, {
       public_id: `${id}_cookie`,
       width: 200,
-      crop: "fill",
     });
 
     const cookie = new CookieModel({
@@ -112,18 +112,18 @@ export const deleteCookie = async (req, res) => {
       return cookie.jarID;
     }).clone();
 
-    JarModel.findById(cookie.jarID, (err, jar) => {
+    await JarModel.findById(cookie.jarID, (err, jar) => {
       if (err) return console.log(err);
       jar.cookies.remove(cookie);
       jar.save();
-    });
+    }).clone();
 
-    CookieModel.findByIdAndRemove(cookieID, (err, result) => {
+    await CookieModel.findByIdAndRemove(cookieID, (err, result) => {
       if (err) return console.log(err);
       return;
-    });
+    }).clone();
 
-    res.status(200).send("cookie deleted");
+    res.status(200).send(cookie);
   } catch (error) {
     console.log(error);
   }
