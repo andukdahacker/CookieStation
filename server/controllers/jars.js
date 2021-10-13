@@ -38,6 +38,23 @@ export const deleteJar = async (req, res) => {
   try {
     const id = req.params.id;
 
+    await JarModel.findById(id, (err, result) => {
+      if (err) return console.log(err);
+      const cookieArray = result.cookies;
+      for (let i = 0; i < cookieArray.length; i++) {
+        CookieModel.findByIdAndRemove(cookieArray[i]._id, (err, result) => {
+          if (err) console.log(err);
+          cloudinary.v2.uploader.destroy(
+            result.cookieImage_id,
+            (err, result) => {
+              if (err) return console.log(err);
+              return;
+            }
+          );
+        });
+      }
+    }).clone();
+
     await JarModel.findByIdAndRemove(id, (err, result) => {
       if (err) return console.log(err);
       return;
@@ -55,15 +72,23 @@ export const createCookie = async (req, res) => {
     const newCookieContent = req.body.cookieContent;
     const id = req.params.id;
     const file = req.file.path;
-    const imageUploadResult = await cloudinary.v2.uploader.upload(file, {
-      public_id: `${id}_cookie`,
-      width: 200,
-    });
+
+    const imageUploadResult = await cloudinary.v2.uploader.upload(
+      file,
+      {
+        width: 200,
+      },
+      (err, result) => {
+        if (err) return console.log(err);
+        return;
+      }
+    );
 
     const cookie = new CookieModel({
       cookieTitle: newCookieTitle,
       cookieContent: newCookieContent,
       cookieImage: imageUploadResult.secure_url,
+      cookieImage_id: imageUploadResult.public_id,
       jarID: id,
       read: false,
     });
@@ -122,6 +147,14 @@ export const deleteCookie = async (req, res) => {
       if (err) return console.log(err);
       return;
     }).clone();
+
+    await cloudinary.v2.uploader.destroy(
+      cookie.cookieImage_id,
+      (err, result) => {
+        if (err) return console.log(err);
+        return;
+      }
+    );
 
     res.status(200).send(cookie);
   } catch (error) {

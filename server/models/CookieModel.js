@@ -13,6 +13,9 @@ export const cookieSchema = new mongoose.Schema(
     cookieImage: {
       type: String,
     },
+    cookieImage_id: {
+      type: String,
+    },
     jarID: {
       type: String,
     },
