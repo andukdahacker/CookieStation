@@ -37,7 +37,7 @@ function CreateJar() {
       >
         <div className="maincreatejar">
           <div className="createjar-left">
-            <img src={bottlewnap} alt="bottlewnap" />
+            <img src={bottlewnap} alt="bottlewnap" className="jar-createjar" />
           </div>
           <div className="createjar-right">
             <Form className="createjar-form">

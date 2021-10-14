@@ -22,6 +22,7 @@ function Jar() {
       .then((response) => {
         setJarData(response.data);
         setCookieData(response.data.cookies);
+        console.log(response.data);
         setIsLoading(false);
       })
       .catch((error) => {
@@ -62,19 +63,21 @@ function Jar() {
       ) : (
         <div>
           <h1>{jarData.jarName}</h1>
-          {cookieData.map((val, id) => {
-            return (
-              <div key={id}>
-                <Link
-                  to={`/cookies/${val._id}`}
-                  onClick={() => updateCookieToRead(val._id)}
-                >
-                  <img src={cookie} alt="cookie" />
-                </Link>
-                <span>{val.cookieTitle}</span>
-              </div>
-            );
-          })}
+          {cookieData
+            .filter((cookie) => cookie.read === false)
+            .map((val, id) => {
+              return (
+                <div key={id}>
+                  <Link
+                    to={`/cookies/${val._id}`}
+                    onClick={() => updateCookieToRead(val._id)}
+                  >
+                    <img src={cookie} alt="cookie" />
+                  </Link>
+                  <span>{val.cookieTitle}</span>
+                </div>
+              );
+            })}
         </div>
       )}
       <button
@@ -84,6 +87,7 @@ function Jar() {
       >
         Create cookie
       </button>
+      <Link to={`/readcookies/${id}`}>Read List</Link>
       <Modal
         isOpen={cookieForm}
         onRequestClose={() => {

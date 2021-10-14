@@ -9,6 +9,7 @@ import Contact from "./Pages/Contact";
 import SignUp from "./Pages/SignUp";
 import Jar from "./Pages/Jar";
 import Cookie from "./Pages/Cookie";
+import ReadList from "./Pages/ReadList";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 export default function App() {
@@ -25,6 +26,7 @@ export default function App() {
             <Route exact path="/contact" component={Contact} />
             <Route exact path="/shelf/:id" component={Jar} />
             <Route exact path="/cookies/:id" component={Cookie} />
+            <Route exact path="/readcookies/:id" component={ReadList} />
           </Switch>
         </Router>
         <Footer />

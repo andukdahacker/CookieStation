@@ -47,7 +47,6 @@ function Cookie() {
       ) : (
         <div>
           <div className={``}>
-            {/* {cookieData.filter((cookie) => {cookieData.read == "false"}).map((cookie) => {})} */}
             <h1>{cookieData.cookieTitle}</h1>
             <span>{cookieData.cookieContent}</span>
           </div>

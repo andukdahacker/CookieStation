@@ -76,7 +76,15 @@ export const createCookie = async (req, res) => {
     const imageUploadResult = await cloudinary.v2.uploader.upload(
       file,
       {
-        width: 200,
+        transformation: [
+          {
+            dpr: "auto",
+            responsive: true,
+            width: 300,
+            crop: "scale",
+          },
+          { quality: "auto", fetch_format: "auto" },
+        ],
       },
       (err, result) => {
         if (err) return console.log(err);
