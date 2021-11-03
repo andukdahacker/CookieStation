@@ -3,13 +3,14 @@ import mongoose from "mongoose";
 import cors from "cors";
 import shelfRoutes from "./routers/shelfRoutes.js";
 import cookieRoutes from "./routers/cookieRoutes.js";
+import dotenv from "dotenv";
 
+dotenv.config();
 const app = express();
 app.use(express.json());
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 app.use(cors());
-const URI =
-  "mongodb+srv://anduc:ducdeptraino4@cluster0.o29zt.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const URI = process.env.URI;
 
 mongoose
   .connect(URI, { useNewURLParser: true, useUnifiedTopology: true })
