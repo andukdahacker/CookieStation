@@ -4,10 +4,11 @@ import bottlewnap from "../image/bottlewnap.png";
 import cookie from "../image/cookie.png";
 import jartrio from "../image/jar trio.png";
 import { Link } from "react-router-dom";
-
+import Navbar from "../components/navbar";
 function Home() {
   return (
     <>
+      <Navbar />
       <div className="body">
         {/*================ Start of Body1 =================== */}
         <div className="body1">

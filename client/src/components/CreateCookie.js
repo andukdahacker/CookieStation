@@ -24,7 +24,7 @@ function CreateCookie() {
     data.append("cookieContent", values.cookieContent);
     data.append("cookieImage", values.cookieImage);
     axios
-      .post(URL, data)
+      .post(URL, data, { withCredentials: true })
       .then((res) => {
         setIsLoading(false);
         history.push(`/cookies/${res.data._id}`);
@@ -33,7 +33,7 @@ function CreateCookie() {
         console.log(error);
       });
 
-    history.push(`/shelf/${id}`);
+    // history.push(`/shelf/${id}`);
   };
 
   const validationSchema = Yup.object({

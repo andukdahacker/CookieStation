@@ -24,4 +24,4 @@ export const cookieSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export const CookieModel = mongoose.model("Cookies", cookieSchema);
+export const CookieModel = mongoose.model("cookies", cookieSchema);

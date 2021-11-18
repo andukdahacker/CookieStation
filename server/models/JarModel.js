@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { cookieSchema } from "./CookieModel.js";
 
 const jarSchema = new mongoose.Schema(
   {
@@ -7,9 +6,20 @@ const jarSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    cookies: [cookieSchema],
+    cookies: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "cookies",
+      },
+    ],
+    author: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "users",
+      },
+    ],
   },
   { timestamps: true }
 );
 
-export const JarModel = mongoose.model("Jars", jarSchema);
+export const JarModel = mongoose.model("jars", jarSchema);

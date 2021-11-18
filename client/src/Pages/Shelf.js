@@ -4,7 +4,7 @@ import Modal from "react-modal";
 import CreateJar from "../components/CreateJar";
 import axios from "axios";
 import { Link } from "react-router-dom";
-
+import Navbar from "../components/navbar";
 Modal.setAppElement("#root");
 
 function Shelf() {
@@ -15,9 +15,9 @@ function Shelf() {
   const URL = "http://localhost:5000/shelf";
   useEffect(() => {
     axios
-      .get(URL)
+      .get(URL, { withCredentials: true })
       .then((response) => {
-        setData(response.data);
+        setData(response.data.jars);
         setIsLoading(false);
       })
       .catch((err) => {
@@ -28,6 +28,7 @@ function Shelf() {
 
   return (
     <>
+      <Navbar />
       <div className="mainshelf">
         <button onClick={() => setJarForm(true)}>Create jar</button>
         <Modal isOpen={jarForm} onRequestClose={() => setJarForm(false)}>

@@ -1,15 +1,23 @@
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import shelfRoutes from "./routers/shelfRoutes.js";
-import cookieRoutes from "./routers/cookieRoutes.js";
+import authRoutes from "./routers/authRoutes.js";
 import dotenv from "dotenv";
 
 dotenv.config({ path: "./config.env" });
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    preflightContinue: true,
+    credentials: true,
+  })
+);
 const PORT = process.env.PORT;
-app.use(cors());
 const URI = process.env.URI;
 
 mongoose
@@ -25,4 +33,4 @@ mongoose
   });
 
 app.use("/shelf", shelfRoutes);
-app.use("/cookies", cookieRoutes);
+app.use("/auth", authRoutes);

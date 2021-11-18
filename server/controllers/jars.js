@@ -1,20 +1,33 @@
 import { JarModel } from "../models/JarModel.js";
 import { CookieModel } from "../models/CookieModel.js";
 import cloudinary from "../utils/cloudinary.js";
+import { UserModel } from "../models/UserModel.js";
 
-export const getJars = async (req, res) => {
-  JarModel.find({}, (err, result) => {
-    if (err) {
-      res.status(500).send(err);
-    }
-    res.send(result);
-  });
+export const getJars = (req, res) => {
+  const author = req.user._id;
+  try {
+    UserModel.findById(author)
+      .populate("jars")
+      .exec((err, result) => {
+        if (err) res.status(400).json({ redirectURL: "/login" });
+        res.status(200).json({ jars: result.jars });
+      });
+  } catch (error) {
+    res.status(500).json({ Error: "Internal server error" });
+    console.log(error);
+  }
 };
 
 export const createJar = async (req, res) => {
+  const newJar = req.body.jarName;
+  const author = req.user._id;
   try {
-    const newJar = req.body.jarName;
-    const jar = new JarModel({ jarName: newJar });
+    const jar = new JarModel({ jarName: newJar, author: author });
+    await UserModel.findById(author, (err, result) => {
+      if (err) res.status(400).json({ redirectURL: "/login" });
+      result.jars.push(jar);
+      result.save();
+    }).clone();
     await jar.save();
     res.status(200).send(jar);
   } catch (error) {
@@ -24,26 +37,28 @@ export const createJar = async (req, res) => {
 
 export const getJarData = async (req, res) => {
   const id = req.params.id;
-  JarModel.findById(id, (error, result) => {
-    if (error) {
-      console.log("Error:", error);
-      res.status(500);
-    }
-    res.status(200);
-    res.send(result);
-  });
+  try {
+    await JarModel.findById(id)
+      .populate("cookies")
+      .exec((err, result) => {
+        if (err) res.status(400).json({ error: err });
+        res.status(200).json({ jar: result });
+      });
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
 };
 
 export const deleteJar = async (req, res) => {
+  const id = req.params.id;
+  const user = req.user;
   try {
-    const id = req.params.id;
-
     await JarModel.findById(id, (err, result) => {
       if (err) return console.log(err);
       const cookieArray = result.cookies;
       for (let i = 0; i < cookieArray.length; i++) {
-        CookieModel.findByIdAndRemove(cookieArray[i]._id, (err, result) => {
-          if (err) console.log(err);
+        CookieModel.findByIdAndRemove(cookieArray[i], (err, result) => {
+          if (err) res.status(400).json({ Error: err });
           cloudinary.v2.uploader.destroy(
             result.cookieImage_id,
             (err, result) => {
@@ -53,6 +68,12 @@ export const deleteJar = async (req, res) => {
           );
         });
       }
+    }).clone();
+
+    await UserModel.findById(user._id, (err, result) => {
+      if (err) res.status(400).json({ Error: err });
+      result.jars.remove(id);
+      result.save();
     }).clone();
 
     await JarModel.findByIdAndRemove(id, (err, result) => {
@@ -66,13 +87,24 @@ export const deleteJar = async (req, res) => {
   }
 };
 
-export const createCookie = async (req, res) => {
-  try {
-    const newCookieTitle = req.body.cookieTitle;
-    const newCookieContent = req.body.cookieContent;
-    const id = req.params.id;
-    const file = req.file.path;
+export const getCookieData = async (req, res) => {
+  const id = req.params.id;
+  await CookieModel.findById(id, (error, result) => {
+    if (error) {
+      console.log("Error:", error);
+      res.status(500);
+    }
+    res.send(result);
+  }).clone();
+};
 
+export const createCookie = async (req, res) => {
+  const newCookieTitle = req.body.cookieTitle;
+  const newCookieContent = req.body.cookieContent;
+  const id = req.params.id;
+  const file = req.file.path;
+
+  try {
     const imageUploadResult = await cloudinary.v2.uploader.upload(
       file,
       {
@@ -87,12 +119,12 @@ export const createCookie = async (req, res) => {
         ],
       },
       (err, result) => {
-        if (err) return console.log(err);
+        if (err) res.status(500).json("Internal Server Error");
         return;
       }
     );
 
-    const cookie = new CookieModel({
+    const cookie = await CookieModel.create({
       cookieTitle: newCookieTitle,
       cookieContent: newCookieContent,
       cookieImage: imageUploadResult.secure_url,
@@ -101,39 +133,30 @@ export const createCookie = async (req, res) => {
       read: false,
     });
 
-    const jar = await JarModel.findById(id).clone();
-    jar.cookies.push(cookie);
+    await JarModel.findById(id, (err, result) => {
+      if (err) res.status(400).json({ Error: error });
+      result.cookies.push(cookie);
+      result.save();
+    }).clone();
 
-    await jar.save();
-    await cookie.save();
     res.status(200).send(cookie);
   } catch (error) {
-    res.status(500);
-    console.log(error);
+    res.status(500).json({ Error: error });
   }
 };
 
 export const updateCookieToRead = async (req, res) => {
+  const cookieID = req.body.id;
+  const cookieUpdate = req.body.read;
   try {
-    const cookieID = req.body.id;
-    const cookieUpdate = req.body.read;
-    const jarID = req.params.id;
-
-    await JarModel.findById(jarID, (err, result) => {
-      if (err) return console.log(err);
-      result.cookies.id(cookieID).read = cookieUpdate;
-      result.save();
-    }).clone();
-
     await CookieModel.findById(cookieID, (err, result) => {
       if (err) return console.log(err);
       result.read = cookieUpdate;
       result.save();
+      res.status(200);
     }).clone();
-
-    res.status(200).send("cookie updated");
   } catch (error) {
-    console.log(error);
+    res.status(500).json({ Error: error });
   }
 };
 

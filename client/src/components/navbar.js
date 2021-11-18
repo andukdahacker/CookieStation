@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/navbar.css";
 import { Link } from "react-router-dom";
 
 function Navbar() {
-  const [active, setActive] = useState(1);
+  const [isAuth, setIsAuth] = useState(false);
+  useEffect(() => {
+    if (localStorage.getItem("authToken")) {
+      setIsAuth(true);
+    }
+  }, [isAuth]);
 
-  const changeActive = (index) => {
-    setActive(index);
-  };
   return (
     <>
       <div className="navbar">
@@ -16,37 +18,30 @@ function Navbar() {
         </Link>
         <ul className="navlinks">
           <li>
-            <Link
-              to="/"
-              className={active === 1 ? "links active" : "links"}
-              onClick={() => changeActive(1)}
-            >
+            <Link to="/" className="links">
               Home
             </Link>
           </li>
           <li>
-            <Link
-              to="/shelf"
-              className={active === 2 ? "links active" : "links"}
-              onClick={() => changeActive(2)}
-            >
+            <Link to="/shelf" className="links">
               Shelf
             </Link>
           </li>
           <li>
-            <Link
-              to="/contact"
-              className={active === 3 ? "links active" : "links"}
-              onClick={() => changeActive(3)}
-            >
+            <Link to="/contact" className="links">
               Contact
             </Link>
           </li>
         </ul>
-
-        <Link to="/login" className="login">
-          Sign up
-        </Link>
+        {isAuth ? (
+          <>
+            <Link to="/logout">Log out</Link>
+          </>
+        ) : (
+          <Link to="/login" className="login">
+            Sign up
+          </Link>
+        )}
       </div>
     </>
   );
