@@ -4,10 +4,12 @@ import { Link } from "react-router-dom";
 
 function Navbar() {
   const [isAuth, setIsAuth] = useState(false);
+  const [username, setUsername] = useState("");
   useEffect(() => {
     if (localStorage.getItem("authToken")) {
       setIsAuth(true);
     }
+    setUsername(localStorage.getItem("username"));
   }, [isAuth]);
 
   return (
@@ -35,6 +37,7 @@ function Navbar() {
         </ul>
         {isAuth ? (
           <>
+            <span>Hello, {username}</span>
             <Link to="/logout">Log out</Link>
           </>
         ) : (

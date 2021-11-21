@@ -16,8 +16,9 @@ export const cookieSchema = new mongoose.Schema(
     cookieImage_id: {
       type: String,
     },
-    jarID: {
-      type: String,
+    jar: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "jars",
     },
     read: Boolean,
   },

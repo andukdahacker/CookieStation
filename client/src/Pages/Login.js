@@ -35,6 +35,7 @@ function Login() {
       )
       .then((res) => {
         localStorage.setItem("authToken", res.data.token);
+        localStorage.setItem("username", res.data.user);
         setIsLoading(false);
         history.go(-1);
       })

@@ -11,6 +11,7 @@ function LogOut() {
       .get(logOutAPI, { withCredentials: true })
       .then(() => {
         localStorage.removeItem("authToken");
+        localStorage.removeItem("username");
         history.push("/");
       })
       .catch((err) => {

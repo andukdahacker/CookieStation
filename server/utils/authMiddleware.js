@@ -8,12 +8,17 @@ export const requireAuth = (req, res, next) => {
     jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
       if (err) {
         res.json({ redirectURL: "/login" });
+        req.user = null;
         console.log(err);
       } else {
         const user = await UserModel.findById(decodedToken.id);
-        if (!user) next();
-        req.user = user;
-        next();
+        if (!user) {
+          res.json({ redirectURL: "/login" });
+          req.user = null;
+        } else {
+          req.user = user;
+          next();
+        }
       }
     });
   } else {
@@ -21,21 +26,24 @@ export const requireAuth = (req, res, next) => {
   }
 };
 
-export const checkUser = (req, res, next) => {
+export const checkAuthor = (req, res, next) => {
   const token = req.cookies.jwt;
-
-  if (token) {
+  if (!token) {
+    req.user = null;
+    next();
+  } else {
     jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
       if (err) {
-        next();
+        res.json({ Error: err });
       } else {
-        console.log(decodedToken);
-        let user = await UserModel.findById(decodedToken.id);
-        req.user = user;
-        next();
+        const user = await UserModel.findById(decodedToken.id);
+        if (!user) {
+          res.json({ redirectURL: "/login" });
+        } else {
+          req.user = user;
+          next();
+        }
       }
     });
-  } else {
-    next();
   }
 };

@@ -7,6 +7,7 @@ import Navbar from "../components/navbar";
 function Cookie() {
   const [cookieData, setCookieData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [access, setAccess] = useState();
   const [error, setError] = useState(false);
   const { id } = useParams();
   const getCookieDataAPI = `http://localhost:5000/shelf/cookies/${id}`;
@@ -17,7 +18,8 @@ function Cookie() {
     axios
       .get(getCookieDataAPI, { withCredentials: true })
       .then((response) => {
-        setCookieData(response.data);
+        setAccess(response.data.access);
+        setCookieData(response.data.cookie);
         setIsLoading(false);
       })
       .catch((err) => {
@@ -32,7 +34,7 @@ function Cookie() {
       .delete(deleteCookieDataAPI, { withCredentials: true })
       .then((res) => {
         setIsLoading(false);
-        history.push(`/shelf/${res.data.jarID}`);
+        history.push(`/shelf/${res.data.jar}`);
       })
       .catch((err) => {
         console.log(err);
@@ -42,26 +44,31 @@ function Cookie() {
   return (
     <>
       <Navbar />
-      <div className="maincookie">
-        {isLoading ? (
-          <div>Loading</div>
-        ) : error ? (
-          <div>Error...</div>
-        ) : (
-          <div>
-            <div className={``}>
-              <h1>{cookieData.cookieTitle}</h1>
-              <span>{cookieData.cookieContent}</span>
+      {access ? (
+        <div className="maincookie">
+          {isLoading ? (
+            <div>Loading</div>
+          ) : error ? (
+            <div>Error...</div>
+          ) : (
+            <div>
+              <div className={``}>
+                <h1>{cookieData.cookieTitle}</h1>
+                <span>{cookieData.cookieContent}</span>
+              </div>
+              <div className={``}>
+                <img src={cookieData.cookieImage} alt="img" />
+              </div>
+
+              <button onClick={() => deleteCookie(id)}>
+                {isLoading ? <div>Loading</div> : <div>Delete</div>}
+              </button>
             </div>
-            <div className={``}>
-              <img src={cookieData.cookieImage} alt="img" />
-            </div>
-            <button onClick={() => deleteCookie(id)}>
-              {isLoading ? <div>Loading</div> : <div>Delete</div>}
-            </button>
-          </div>
-        )}
-      </div>
+          )}
+        </div>
+      ) : (
+        <div className="maincookie">You cannot access this cookie</div>
+      )}
     </>
   );
 }

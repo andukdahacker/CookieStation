@@ -6,6 +6,7 @@ import Navbar from "../components/navbar";
 function ReadList() {
   const [cookieData, setCookieData] = useState([]);
   const [jarData, setJarData] = useState([]);
+  const [access, setAccess] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
   const { id } = useParams();
@@ -15,6 +16,7 @@ function ReadList() {
     axios
       .get(jarDataAPI, { withCredentials: true })
       .then((response) => {
+        setAccess(response.data.access);
         setJarData(response.data.jar);
         setCookieData(response.data.jar.cookies);
         setIsLoading(false);
@@ -28,28 +30,32 @@ function ReadList() {
   return (
     <>
       <Navbar />
-      <div className="mainreadlist">
-        {isLoading ? (
-          <div>Loading...</div>
-        ) : error ? (
-          <div>Error</div>
-        ) : (
-          <div>
-            <h2>{jarData.jarName}</h2>
-            {cookieData
-              .filter((cookie) => cookie.read === true)
-              .map((val, id) => {
-                return (
-                  <div key={id}>
-                    <h3>{val.cookieTitle}</h3>
-                    <img src={val.cookieImage} alt="img" />
-                    <span>{val.cookieContent}</span>
-                  </div>
-                );
-              })}
-          </div>
-        )}
-      </div>
+      {access ? (
+        <div className="mainreadlist">
+          {isLoading ? (
+            <div>Loading...</div>
+          ) : error ? (
+            <div>Error</div>
+          ) : (
+            <div>
+              <h2>{jarData.jarName}</h2>
+              {cookieData
+                .filter((cookie) => cookie.read === true)
+                .map((val, id) => {
+                  return (
+                    <div key={id}>
+                      <h3>{val.cookieTitle}</h3>
+                      <img src={val.cookieImage} alt="img" />
+                      <span>{val.cookieContent}</span>
+                    </div>
+                  );
+                })}
+            </div>
+          )}
+        </div>
+      ) : (
+        <div className="mainreadlist">You shall not pass</div>
+      )}
     </>
   );
 }

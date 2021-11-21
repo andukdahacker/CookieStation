@@ -4,11 +4,10 @@ import TextError from "./TextError";
 import * as Yup from "yup";
 import "../styles/Createcookie.css";
 import axios from "axios";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 function CreateCookie() {
   const { id } = useParams();
-  const history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
   const URL = `http://localhost:5000/shelf/${id}`;
   const initialValues = {
@@ -27,13 +26,11 @@ function CreateCookie() {
       .post(URL, data, { withCredentials: true })
       .then((res) => {
         setIsLoading(false);
-        history.push(`/cookies/${res.data._id}`);
+        window.location.reload();
       })
       .catch((error) => {
         console.log(error);
       });
-
-    // history.push(`/shelf/${id}`);
   };
 
   const validationSchema = Yup.object({

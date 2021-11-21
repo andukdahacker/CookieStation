@@ -10,6 +10,7 @@ function Jar() {
   const [cookieForm, setCookieForm] = useState(false);
   const [jarData, setJarData] = useState([]);
   const [cookieData, setCookieData] = useState([]);
+  const [access, setAccess] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
   const { id } = useParams();
@@ -20,6 +21,7 @@ function Jar() {
     axios
       .get(jarDataAPI, { withCredentials: true })
       .then((response) => {
+        setAccess(response.data.access);
         setJarData(response.data.jar);
         setCookieData(response.data.jar.cookies);
         setIsLoading(false);
@@ -74,12 +76,19 @@ function Jar() {
               .map((val, id) => {
                 return (
                   <div key={id}>
-                    <Link
-                      to={`/cookies/${val._id}`}
-                      onClick={() => updateCookieToRead(val._id)}
-                    >
-                      <img src={cookie} alt="cookie" />
-                    </Link>
+                    {access ? (
+                      <Link
+                        to={`/cookies/${val._id}`}
+                        onClick={() => updateCookieToRead(val._id)}
+                      >
+                        <img src={cookie} alt="cookie" />
+                      </Link>
+                    ) : (
+                      <div>
+                        <img src={cookie} alt="cookie" />
+                      </div>
+                    )}
+
                     <span>{val.cookieTitle}</span>
                   </div>
                 );
@@ -93,7 +102,11 @@ function Jar() {
         >
           Create cookie
         </button>
-        <Link to={`/readcookies/${id}`}>Read List</Link>
+        {access ? (
+          <Link to={`/readcookies/${id}`}>Read List</Link>
+        ) : (
+          <div></div>
+        )}
         <Modal
           isOpen={cookieForm}
           onRequestClose={() => {
@@ -109,13 +122,17 @@ function Jar() {
             X
           </button>
         </Modal>
-        <button
-          onClick={() => {
-            deleteJar();
-          }}
-        >
-          Delete
-        </button>
+        {access ? (
+          <button
+            onClick={() => {
+              deleteJar();
+            }}
+          >
+            Delete
+          </button>
+        ) : (
+          <div></div>
+        )}
       </div>
     </>
   );

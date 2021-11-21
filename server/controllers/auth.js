@@ -30,7 +30,7 @@ export const login = async (req, res, next) => {
       maxAge: maxAge * 1000,
       sameSite: "strict",
     });
-    res.status(200).json({ user: user._id, token });
+    res.status(200).json({ user: user.username, token });
   } catch (error) {
     const errors = handleErrors(error);
     res.status(400).json({ Errors: errors });
