@@ -43,6 +43,7 @@ function Jar() {
         { withCredentials: true }
       )
       .catch((err) => {
+        setError(true);
         console.log(err);
       });
   };
@@ -56,6 +57,7 @@ function Jar() {
         history.push("/shelf");
       })
       .catch((err) => {
+        setError(true);
         console.log(err);
       });
   };

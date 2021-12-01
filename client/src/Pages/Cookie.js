@@ -9,6 +9,7 @@ function Cookie() {
   const [isLoading, setIsLoading] = useState(true);
   const [access, setAccess] = useState();
   const [error, setError] = useState(false);
+  const [showCard, setShowCard] = useState();
   const { id } = useParams();
   const getCookieDataAPI = `http://localhost:5000/shelf/cookies/${id}`;
   const deleteCookieDataAPI = `http://localhost:5000/shelf/cookies/delete/${id}`;
@@ -37,9 +38,12 @@ function Cookie() {
         history.push(`/shelf/${res.data.jar}`);
       })
       .catch((err) => {
+        setError(true);
         console.log(err);
       });
   };
+
+  const handleClick = () => {};
 
   return (
     <>
@@ -52,14 +56,13 @@ function Cookie() {
             <div>Error...</div>
           ) : (
             <div>
-              <div className={``}>
+              <div onClick={setShowCard(1)} className={``}>
                 <h1>{cookieData.cookieTitle}</h1>
                 <span>{cookieData.cookieContent}</span>
               </div>
-              <div className={``}>
+              <div onClick={setShowCard(2)} className={``}>
                 <img src={cookieData.cookieImage} alt="img" />
               </div>
-
               <button onClick={() => deleteCookie(id)}>
                 {isLoading ? <div>Loading</div> : <div>Delete</div>}
               </button>

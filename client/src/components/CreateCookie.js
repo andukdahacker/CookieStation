@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 function CreateCookie() {
   const { id } = useParams();
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
   const URL = `http://localhost:5000/shelf/${id}`;
   const initialValues = {
     cookieTitle: "",
@@ -29,7 +30,9 @@ function CreateCookie() {
         window.location.reload();
       })
       .catch((error) => {
-        console.log(error);
+        setIsLoading(false);
+        setError(true);
+        console.log(error.response);
       });
   };
 

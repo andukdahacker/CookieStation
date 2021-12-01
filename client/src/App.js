@@ -10,6 +10,7 @@ import Jar from "./Pages/Jar";
 import Cookie from "./Pages/Cookie";
 import ReadList from "./Pages/ReadList";
 import LogOut from "./Pages/LogOut";
+import ForgotPassword from "./Pages/ForgotPassword";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
 
@@ -24,6 +25,7 @@ export default function App() {
             <PrivateRoute exact path="/shelf" component={Shelf} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={SignUp} />
+            <Route exact path="/forgotpassword" component={ForgotPassword} />
             <Route exact path="/contact" component={Contact} />
             <Route exact path="/shelf/:id" component={Jar} />
             <Route exact path="/cookies/:id" component={Cookie} />

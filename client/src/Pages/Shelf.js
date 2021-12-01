@@ -17,6 +17,7 @@ function Shelf() {
     axios
       .get(URL, { withCredentials: true })
       .then((response) => {
+        console.log(response.data);
         setData(response.data.jars);
         setIsLoading(false);
       })

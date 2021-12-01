@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import "../styles/ReadList.css";
 import Navbar from "../components/navbar";
+import Pin from "../components/Pin";
+
 function ReadList() {
   const [cookieData, setCookieData] = useState([]);
   const [jarData, setJarData] = useState([]);
@@ -44,9 +46,15 @@ function ReadList() {
                 .map((val, id) => {
                   return (
                     <div key={id}>
-                      <h3>{val.cookieTitle}</h3>
+                      {/* <h3>{val.cookieTitle}</h3>
                       <img src={val.cookieImage} alt="img" />
-                      <span>{val.cookieContent}</span>
+                      <span>{val.cookieContent}</span> */}
+                      <Pin
+                        cookieID={val._id}
+                        image={val.cookieImage}
+                        title={val.cookieTitle}
+                        message={val.cookieContent}
+                      />
                     </div>
                   );
                 })}

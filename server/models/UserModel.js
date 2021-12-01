@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
+import crypto from "crypto";
 
 const userSchema = mongoose.Schema({
   username: {
@@ -30,6 +31,8 @@ const userSchema = mongoose.Schema({
       ref: "jars",
     },
   ],
+  resetPasswordToken: String,
+  resetPasswordExpire: Date,
 });
 
 //before saving new users into db
@@ -56,4 +59,17 @@ userSchema.statics.login = async function (email, password) {
   throw Error("Incorrect email");
 };
 
+//generate reset password
+userSchema.statics.getResetPasswordToken = async function () {
+  const resetToken = crypto.randomBytes(20).toString("hex");
+
+  this.resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+
+  this.resetPasswordExpire = Date.now() + 10 * (60 * 1000); //10 mins
+
+  return resetToken;
+};
 export const UserModel = mongoose.model("users", userSchema);

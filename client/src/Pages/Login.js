@@ -34,8 +34,9 @@ function Login() {
         { withCredentials: true }
       )
       .then((res) => {
-        localStorage.setItem("authToken", res.data.token);
+        localStorage.setItem("authToken", res.data.accessToken);
         localStorage.setItem("username", res.data.user);
+        console.log(res.data.user);
         setIsLoading(false);
         history.go(-1);
       })
@@ -96,7 +97,7 @@ function Login() {
               {isLoading ? <div>Loading</div> : <div>Login</div>}
             </button>
           </Form>
-          <a href="/">Forgot password?</a>
+          <Link to="/forgotpassword">Forgot password?</Link>
           <p>
             Don't have an account? <Link to="/signup">Create new account</Link>
           </p>

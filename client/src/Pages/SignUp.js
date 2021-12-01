@@ -45,7 +45,8 @@ function SignUp() {
         { withCredentials: true }
       )
       .then((res) => {
-        localStorage.setItem("authToken", res.data.token);
+        localStorage.setItem("authToken", res.data.accessToken);
+        localStorage.setItem("username", res.data.user);
         setIsLoading(false);
         history.push("/");
       })

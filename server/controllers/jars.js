@@ -2,6 +2,7 @@ import { JarModel } from "../models/JarModel.js";
 import { CookieModel } from "../models/CookieModel.js";
 import cloudinary from "../utils/cloudinary.js";
 import { UserModel } from "../models/UserModel.js";
+import fs from "fs";
 
 // require auth
 export const getJars = (req, res) => {
@@ -150,7 +151,6 @@ export const createCookie = async (req, res) => {
         return;
       }
     );
-
     const cookie = await CookieModel.create({
       cookieTitle: newCookieTitle,
       cookieContent: newCookieContent,
@@ -159,13 +159,13 @@ export const createCookie = async (req, res) => {
       jar: id,
       read: false,
     });
-
     await JarModel.findById(id, async (err, result) => {
       if (err) res.status(400).json({ Error: error });
       result.cookies.push(cookie);
       result.save();
     }).clone();
 
+    fs.unlinkSync(req.file.path);
     res.status(200).send(cookie);
   } catch (error) {
     res.status(500).json({ Error: error });
