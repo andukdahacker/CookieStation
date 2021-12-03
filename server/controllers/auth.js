@@ -1,5 +1,6 @@
 import { UserModel } from "../models/UserModel.js";
 import jwt from "jsonwebtoken";
+import crypto from "crypto";
 import { sendMail } from "../utils/sendMail.js";
 
 export const register = async (req, res, next) => {
@@ -59,36 +60,37 @@ export const forgotPassword = async (req, res, next) => {
   try {
     const user = await UserModel.findOne({ email });
 
-    if (!user) res.status(404).json({ Error: "User does not exist" });
-    const resetToken = UserModel.getResetPasswordToken();
-    await user.save();
-    console.log(user);
-    console.log(resetToken);
-    const resetURL = `http://localhost:3000/resetpassword/${resetToken}`;
-    console.log(resetURL);
+    if (!user) {
+      res.status(404).json({ Error: "User does not exist" });
+    } else {
+      const resetToken = user.getResetPasswordToken();
+      await user.save();
 
-    const message = `
+      console.log(user);
+      const resetURL = `http://localhost:3000/resetpassword/${resetToken}`;
+
+      const message = `
     <h1>You have requested a password reset</h1>
     <p>Click the link below to continue the process</p>
     <a href=${resetURL} clicktracking=off>${resetURL}</a>
     `;
 
-    try {
-      sendMail({
-        to: user.email,
-        subject: "Password Reset",
-        text: message,
-      });
+      try {
+        sendMail({
+          to: user.email,
+          subject: "Password Reset",
+          text: message,
+        });
 
-      res.status(200).json({ data: "Email sent" });
-    } catch (error) {
-      user.resetPasswordToken = undefined;
-      user.resetPasswordExpire = undefined;
+        res.status(200).json({ message: "Email sent" });
+      } catch (error) {
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpire = undefined;
 
-      await user.save();
-      console.log(error);
+        await user.save();
 
-      res.status(500).json({ Error: error });
+        res.status(500).json({ Error: error });
+      }
     }
   } catch (error) {
     console.log(error);
@@ -96,7 +98,31 @@ export const forgotPassword = async (req, res, next) => {
   }
 };
 
-export const resetPassword = async (req, res, next) => {};
+export const resetPassword = async (req, res, next) => {
+  const { password } = req.body;
+  const resetToken = req.params.resetToken;
+
+  try {
+    const resetPasswordToken = crypto
+      .createHash("sha256")
+      .update(resetToken)
+      .digest("hex");
+
+    const user = await UserModel.findOne({
+      resetPasswordToken,
+    });
+    if (user) {
+      user.password = password;
+      user.resetPasswordToken = undefined;
+      user.resetPasswordExpire = undefined;
+      await user.save();
+
+      res.status(201).json({ message: "Password changed successfully" });
+    } else {
+      res.status(400).json({ message: "User not found" });
+    }
+  } catch (error) {}
+};
 
 const handleErrors = (err) => {
   let errors = { username: "", email: "", password: "" };

@@ -60,7 +60,7 @@ userSchema.statics.login = async function (email, password) {
 };
 
 //generate reset password
-userSchema.statics.getResetPasswordToken = async function () {
+userSchema.methods.getResetPasswordToken = function () {
   const resetToken = crypto.randomBytes(20).toString("hex");
 
   this.resetPasswordToken = crypto

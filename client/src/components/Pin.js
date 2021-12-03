@@ -6,7 +6,7 @@ function Pin(props) {
   return (
     <>
       <div className="mainpin">
-        <Link to={`/cookie/${props.cookieID}`}>
+        <Link to={`/cookies/${props.cookieID}`}>
           <img src={props.image} alt="" />
           <h3>{props.title}</h3>
           <span>{props.message}</span>

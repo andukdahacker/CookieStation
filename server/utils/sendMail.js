@@ -5,7 +5,7 @@ export const sendMail = (options) => {
     service: process.env.EMAIL_SERVICE,
     auth: {
       user: process.env.EMAIL_USERNAME,
-      pass: provess.env.EMAIL_PASSWORD,
+      pass: process.env.EMAIL_PASSWORD,
     },
   });
 
@@ -16,8 +16,8 @@ export const sendMail = (options) => {
     html: options.text,
   };
 
-  transporter.sendEmail(mailOptions, function (err, info) {
+  transporter.sendMail(mailOptions, function (err, info) {
     if (err) console.log(err);
-    console.log(info);
+    return;
   });
 };

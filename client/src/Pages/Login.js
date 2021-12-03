@@ -38,7 +38,7 @@ function Login() {
         localStorage.setItem("username", res.data.user);
         console.log(res.data.user);
         setIsLoading(false);
-        history.go(-1);
+        history.push("/");
       })
       .catch((err) => {
         setIsLoading(false);

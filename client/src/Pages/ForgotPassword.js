@@ -8,7 +8,7 @@ import Navbar from "../components/navbar";
 
 function ForgotPassword() {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [status, setStatus] = useState();
   const forgotPasswordAPI = `http://localhost:5000/auth/forgotpassword`;
   const initialValues = {
     email: "",
@@ -28,12 +28,11 @@ function ForgotPassword() {
       )
       .then((response) => {
         setIsLoading(false);
-        console.log(response);
+        setStatus(response.data.message);
       })
       .catch((error) => {
-        console.log(error.response);
+        setStatus(error.response.data.Error);
         setIsLoading(false);
-        setError(true);
       });
   };
   return (
@@ -47,6 +46,7 @@ function ForgotPassword() {
         <div className="mainforgotpassword">
           <Form>
             <label htmlFor="email">Email</label>
+            <div>{status}</div>
             <Field
               type="text"
               placeholder="your email"
@@ -55,13 +55,7 @@ function ForgotPassword() {
             />
             <ErrorMessage name="email" component={TextError} />
             <button type="submit">
-              {isLoading ? (
-                <div>Loading</div>
-              ) : error ? (
-                <div>Error</div>
-              ) : (
-                <div>Submit</div>
-              )}
+              {isLoading ? <div>Loading</div> : <div>Submit</div>}
             </button>
           </Form>
         </div>

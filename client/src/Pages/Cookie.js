@@ -9,7 +9,6 @@ function Cookie() {
   const [isLoading, setIsLoading] = useState(true);
   const [access, setAccess] = useState();
   const [error, setError] = useState(false);
-  const [showCard, setShowCard] = useState();
   const { id } = useParams();
   const getCookieDataAPI = `http://localhost:5000/shelf/cookies/${id}`;
   const deleteCookieDataAPI = `http://localhost:5000/shelf/cookies/delete/${id}`;
@@ -43,8 +42,6 @@ function Cookie() {
       });
   };
 
-  const handleClick = () => {};
-
   return (
     <>
       <Navbar />
@@ -56,11 +53,11 @@ function Cookie() {
             <div>Error...</div>
           ) : (
             <div>
-              <div onClick={setShowCard(1)} className={``}>
+              <div>
                 <h1>{cookieData.cookieTitle}</h1>
                 <span>{cookieData.cookieContent}</span>
               </div>
-              <div onClick={setShowCard(2)} className={``}>
+              <div>
                 <img src={cookieData.cookieImage} alt="img" />
               </div>
               <button onClick={() => deleteCookie(id)}>

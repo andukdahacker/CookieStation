@@ -11,6 +11,7 @@ import Cookie from "./Pages/Cookie";
 import ReadList from "./Pages/ReadList";
 import LogOut from "./Pages/LogOut";
 import ForgotPassword from "./Pages/ForgotPassword";
+import ResetPassword from "./Pages/ResetPassword";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
 
@@ -31,6 +32,11 @@ export default function App() {
             <Route exact path="/cookies/:id" component={Cookie} />
             <PrivateRoute exact path="/readcookies/:id" component={ReadList} />
             <Route exact path="/logout" component={LogOut} />
+            <Route
+              exact
+              path="/resetpassword/:resetToken"
+              component={ResetPassword}
+            />
           </Switch>
         </Router>
         <Footer />
