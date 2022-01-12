@@ -45,7 +45,6 @@ function SignUp() {
         { withCredentials: true }
       )
       .then((res) => {
-        localStorage.setItem("authToken", res.data.accessToken);
         localStorage.setItem("username", res.data.user);
         setIsLoading(false);
         history.push("/");
@@ -57,7 +56,7 @@ function SignUp() {
   };
 
   useEffect(() => {
-    if (localStorage.getItem("authToken")) {
+    if (localStorage.getItem("username")) {
       history.push("/");
     }
   }, [history]);

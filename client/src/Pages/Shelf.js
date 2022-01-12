@@ -5,6 +5,7 @@ import CreateJar from "../components/CreateJar";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Navbar from "../components/navbar";
+import cookie from "../image/cookie.png";
 Modal.setAppElement("#root");
 
 function Shelf() {
@@ -17,7 +18,6 @@ function Shelf() {
     axios
       .get(URL, { withCredentials: true })
       .then((response) => {
-        console.log(response.data);
         setData(response.data.jars);
         setIsLoading(false);
       })
@@ -30,8 +30,18 @@ function Shelf() {
   return (
     <>
       <Navbar />
-      <div className="mainshelf">
-        <button onClick={() => setJarForm(true)}>Create jar</button>
+      <div className="shelf-container">
+        <div className="jar-welcome">
+          <h1>Welcome bitch</h1>
+        </div>
+        <div className="quick-nav">
+          <div>
+            <input type="text" id="search-jar" placeholder="Find your jar..." />
+          </div>
+          <button onClick={() => setJarForm(true)} className="main-btn">
+            Create jar
+          </button>
+        </div>
         <Modal isOpen={jarForm} onRequestClose={() => setJarForm(false)}>
           <CreateJar />
           <button onClick={() => setJarForm(false)}>X</button>
@@ -43,9 +53,10 @@ function Shelf() {
         ) : (
           data.map((val, id) => {
             return (
-              <div key={id}>
-                <Link to={`/shelf/${val._id}`} key={id}>
-                  {val.jarName}
+              <div key={id} className="grid-list">
+                <Link to={`/shelf/${val._id}`} key={id} className="list-item">
+                  <img src={cookie} alt="cookie" className="list-item-img" />
+                  <p>{val.jarName}</p>
                 </Link>
               </div>
             );

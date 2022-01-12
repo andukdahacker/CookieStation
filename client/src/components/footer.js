@@ -4,7 +4,9 @@ import "../styles/footer.css";
 function Footer() {
   return (
     <>
-      <div className="footer">Copyright by the Cookie Jar @2021</div>
+      <div className="footer">
+        <p>The Cookie Station All Rights Reserved</p>
+      </div>
     </>
   );
 }

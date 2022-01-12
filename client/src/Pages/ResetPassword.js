@@ -32,12 +32,10 @@ function ResetPassword() {
       .then((res) => {
         setIsLoading(false);
         setStatus(res.data.message);
-        console.log(res.data.message);
       })
       .catch((err) => {
         setIsLoading(false);
         setStatus(err.response.message);
-        console.log(err.response.message);
       });
   };
   return (

@@ -44,7 +44,6 @@ function Jar() {
       )
       .catch((err) => {
         setError(true);
-        console.log(err);
       });
   };
 
@@ -71,13 +70,13 @@ function Jar() {
         ) : error ? (
           <div>Error...</div>
         ) : (
-          <div>
+          <div className="main">
             <h1>{jarData.jarName}</h1>
             {cookieData
               .filter((cookie) => cookie.read === false)
               .map((val, id) => {
                 return (
-                  <div key={id}>
+                  <div key={id} className="jar">
                     {access ? (
                       <Link
                         to={`/cookies/${val._id}`}
@@ -125,13 +124,7 @@ function Jar() {
           </button>
         </Modal>
         {access ? (
-          <button
-            onClick={() => {
-              deleteJar();
-            }}
-          >
-            Delete
-          </button>
+          <button onClick={() => deleteJar()}>Delete</button>
         ) : (
           <div></div>
         )}

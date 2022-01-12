@@ -9,7 +9,7 @@ export const requireAuth = (req, res, next) => {
       if (err) {
         res.json({ redirectURL: "/login" });
         req.user = null;
-        console.log(err);
+        next();
       } else {
         const user = await UserModel.findById(decodedToken.id);
         if (!user) {
@@ -35,6 +35,7 @@ export const checkAuthor = (req, res, next) => {
     jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
       if (err) {
         res.json({ Error: err });
+        next();
       } else {
         const user = await UserModel.findById(decodedToken.id);
         if (!user) {

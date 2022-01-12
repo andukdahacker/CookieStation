@@ -28,11 +28,11 @@ function CreateCookie() {
       .then((res) => {
         setIsLoading(false);
         window.location.reload();
+        console.log(res.data);
       })
       .catch((error) => {
         setIsLoading(false);
         setError(true);
-        console.log(error.response);
       });
   };
 

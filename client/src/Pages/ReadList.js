@@ -45,10 +45,7 @@ function ReadList() {
                 .filter((cookie) => cookie.read === true)
                 .map((val, id) => {
                   return (
-                    <div key={id}>
-                      {/* <h3>{val.cookieTitle}</h3>
-                      <img src={val.cookieImage} alt="img" />
-                      <span>{val.cookieContent}</span> */}
+                    <div key={id} className="pin">
                       <Pin
                         cookieID={val._id}
                         image={val.cookieImage}

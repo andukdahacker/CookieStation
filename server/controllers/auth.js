@@ -24,7 +24,7 @@ export const register = async (req, res, next) => {
     //   maxAge: maxAge * 12 * 365 * 1000,
     //   sameSite: "strict",
     // });
-    res.status(201).json({ user: user.username, accessToken });
+    res.status(201).json({ user: user.username });
   } catch (error) {
     const errors = handleErrors(error);
     res.status(400).json({ Errors: errors });
@@ -43,7 +43,16 @@ export const login = async (req, res, next) => {
       sameSite: "strict",
     });
 
-    res.status(200).json({ user: user.username, accessToken });
+    // const refreshToken = jwt.sign(user._id, process.env.REFRESH_ACCESS_TOKEN, {
+    //   expiresIn: "1y",
+    // });
+    // res.cookie("refresh-jwt", refreshToken, {
+    //   httpOnly: true,
+    //   maxAge: maxAge * 12 * 365 * 1000,
+    //   sameSite: "strict",
+    // });
+
+    res.status(200).json({ user: user.username });
   } catch (error) {
     const errors = handleErrors(error);
     res.status(400).json({ Errors: errors });
@@ -150,7 +159,7 @@ const handleErrors = (err) => {
   return errors;
 };
 
-const maxAge = 2 * 60 * 60;
+const maxAge = 365 * 24 * 60 * 60;
 
 const createToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {

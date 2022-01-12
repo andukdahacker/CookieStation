@@ -45,30 +45,24 @@ function Cookie() {
   return (
     <>
       <Navbar />
-      {access ? (
-        <div className="maincookie">
-          {isLoading ? (
-            <div>Loading</div>
-          ) : error ? (
-            <div>Error...</div>
-          ) : (
+      <div className="maincookie">
+        {isLoading ? (
+          <div>Loading</div>
+        ) : access ? (
+          <div>
+            <h1>{cookieData.cookieTitle}</h1>
+            <span>{cookieData.cookieContent}</span>
             <div>
-              <div>
-                <h1>{cookieData.cookieTitle}</h1>
-                <span>{cookieData.cookieContent}</span>
-              </div>
-              <div>
-                <img src={cookieData.cookieImage} alt="img" />
-              </div>
-              <button onClick={() => deleteCookie(id)}>
+              <img src={cookieData.cookieImage} alt="img" />
+              <button onClick={() => deleteCookie()}>
                 {isLoading ? <div>Loading</div> : <div>Delete</div>}
               </button>
             </div>
-          )}
-        </div>
-      ) : (
-        <div className="maincookie">You cannot access this cookie</div>
-      )}
+          </div>
+        ) : (
+          <div>You shall not pass</div>
+        )}
+      </div>
     </>
   );
 }

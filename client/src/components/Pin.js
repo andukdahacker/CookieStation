@@ -8,7 +8,7 @@ function Pin(props) {
       <div className="mainpin">
         <Link to={`/cookies/${props.cookieID}`}>
           <img src={props.image} alt="" />
-          <h3>{props.title}</h3>
+          <h3 className="pin-title">{props.title}</h3>
           <span>{props.message}</span>
         </Link>
       </div>

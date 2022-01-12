@@ -1,16 +1,26 @@
-.maincreatejar {
-  font-family: "Poppins", sans-serif;
-  font-size: xx-large;
-  font-weight: 700;
-  background-color: #cfac82;
-  width: 100%;
-  height: calc(100vh - 86px);
+.two-col-sec {
   display: flex;
-  justify-content: center;
+  flex-direction: row;
   align-items: center;
-  flex-direction: column;
+  justify-content: center;
+  align-content: center;
 }
-
-.jar-createjar {
-  width: 400px;
+.col-left {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  padding: 5em 10em 5em 10em;
+  align-items: center;
+}
+.col-right {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  padding: 5em 10em 5em 10em;
+  align-items: center;
+}
+.col-img {
+  display: block;
+  width: 100%;
+  align-content: center;
 }

@@ -39,26 +39,26 @@ function CreateJar() {
         validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
-        <div className="maincreatejar">
-          <div className="createjar-left">
-            <img src={bottlewnap} alt="bottlewnap" className="jar-createjar" />
+        <div className="two-col-sec">
+          <div className="col-left">
+            <img src={bottlewnap} alt="bottlewnap" className="col-img" />
           </div>
-          <div className="createjar-right">
-            <Form className="createjar-form">
-              <label htmlFor="jarName">Name your Jar</label>
-              <Field
-                className="createjar-input"
-                type="text"
-                placeholder="name of your jar..."
-                id="jarName"
-                name="jarName"
-              />
-              <ErrorMessage name="jarName" component={TextError} />
-              <button type="submit">
-                {isLoading ? <div>Loading</div> : <div>Next</div>}
-              </button>
-            </Form>
-          </div>
+          {/* <div className="col-right"> */}
+          <Form className="col-right">
+            <label htmlFor="jarName">Name your Jar</label>
+            <Field
+              className="createjar-input"
+              type="text"
+              placeholder="name your jar..."
+              id="jarName"
+              name="jarName"
+            />
+            <ErrorMessage name="jarName" component={TextError} />
+            <button type="submit">
+              {isLoading ? <div>Loading</div> : <div>Next</div>}
+            </button>
+          </Form>
+          {/* </div> */}
         </div>
       </Formik>
     </>
