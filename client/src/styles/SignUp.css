@@ -1,11 +1,8 @@
-.mainsignup {
-  font-family: "Poppins", sans-serif;
-  font-size: xx-large;
-  font-weight: 700;
-  background-color: #cfac82;
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
+.form{
+  display:flex;
+  flex-direction: column;
   align-items: center;
+}
+.main-btn:hover{
+  cursor: pointer;
 }

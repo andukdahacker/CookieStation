@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import "../styles/SignUp.css";
 import axios from "axios";
 import Navbar from "../components/navbar";
+import Footer from "../components/footer";
 
 function SignUp() {
   const initialValues = {
@@ -64,13 +65,15 @@ function SignUp() {
   return (
     <>
       <Navbar />
+      
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
-        <div className="mainsignup">
-          <Form>
+        <div className="one-col-sec">
+        <h1>Sign Up</h1>
+          <Form className="form">
             <label htmlFor="username">
               Username{" "}
               {validationErrors ? (
@@ -84,9 +87,10 @@ function SignUp() {
               placeholder="Username"
               id="username"
               name="username"
+              className="formInput"
             />
-            <label htmlFor="email">
-              Email{" "}
+            <label htmlFor="Email">
+              {" "}
               {validationErrors ? (
                 <div>{validationErrors.Errors.email}</div>
               ) : (
@@ -98,10 +102,11 @@ function SignUp() {
               placeholder="your email"
               id="email"
               name="email"
+              className="formInput"
             />
             <ErrorMessage name="email" component={TextError} />
-            <label htmlFor="password">
-              Password{" "}
+            <label htmlFor="Password">
+              {" "}
               {validationErrors ? (
                 <div>{validationErrors.Errors.password}</div>
               ) : (
@@ -123,14 +128,15 @@ function SignUp() {
               name="passwordConfirmation"
             />
             <ErrorMessage name="passwordConfirmation" component={TextError} /> */}
-            <button type="submit">
+            <button type="submit" className="main-btn">
               {isLoading ? <div>Loading</div> : <div>Sign up</div>}
             </button>
           </Form>
-          <button>Sign up with Facebook</button>
-          <button>Sign up in Google</button>
+          {/* <button>Sign up with Facebook</button>
+          <button>Sign up in Google</button> */}
         </div>
       </Formik>
+      <Footer />
     </>
   );
 }

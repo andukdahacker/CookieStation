@@ -6,6 +6,7 @@ import "../styles/Login.css";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../components/navbar";
+import Footer from "../components/footer";
 function Login() {
   const initialValues = {
     email: "",
@@ -58,10 +59,11 @@ function Login() {
         validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
-        <div className="mainlogin">
-          <Form>
+        <div className="one-col-sec">
+          <h1>Login</h1>
+          <Form className="form">
             <label htmlFor="email">
-              Email{" "}
+              {" "}
               {validationErrors ? (
                 <div>{validationErrors.Errors.email}</div>
               ) : (
@@ -70,13 +72,14 @@ function Login() {
             </label>
             <Field
               type="text"
-              placeholder="your email"
+              placeholder="Email"
               id="email"
               name="email"
+              className="formInput"
             />
             <ErrorMessage name="email" component={TextError} />
             <label htmlFor="password">
-              Password{" "}
+              {" "}
               {validationErrors ? (
                 <div>{validationErrors.Errors.password}</div>
               ) : (
@@ -85,13 +88,14 @@ function Login() {
             </label>
             <Field
               type="text"
-              placeholder="your password"
+              placeholder="Password"
               id="password"
               name="password"
+              className="formInput"
             />
             <ErrorMessage name="password" component={TextError} />
 
-            <button type="submit">
+            <button type="submit" className="main-btn">
               {isLoading ? <div>Loading</div> : <div>Login</div>}
             </button>
           </Form>
@@ -99,10 +103,11 @@ function Login() {
           <p>
             Don't have an account? <Link to="/signup">Create new account</Link>
           </p>
-          <button>Login with Facebook</button>
-          <button>Login in Google</button>
+          {/* <button>Login with Facebook</button>
+          <button>Login in Google</button> */}
         </div>
       </Formik>
+      <Footer />
     </>
   );
 }

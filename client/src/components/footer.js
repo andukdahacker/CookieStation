@@ -5,7 +5,7 @@ function Footer() {
   return (
     <>
       <div className="footer">
-        <p>The Cookie Station All Rights Reserved</p>
+        <p>The Cookie Station &copy; All Rights Reserved</p>
       </div>
     </>
   );

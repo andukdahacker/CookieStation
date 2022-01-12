@@ -1,19 +1,25 @@
 import React from "react";
 import "../styles/Home.css";
-import bottlewnap from "../image/bottlewnap.png";
-import cookie from "../image/cookie.png";
-import jartrio from "../image/jar trio.png";
+import jartrio from "../image/trio-jar.png";
 import { Link } from "react-router-dom";
 import Navbar from "../components/navbar";
+
+import introImg from "../image/intro-img.png";
+import guideImg from "../image/guide-img.png";
+import heroImg from "../image/cookiewall.jpg";
 function Home() {
   return (
     <>
       <Navbar />
       <div className="welcome-sec">
-        <img src={jartrio} id="hero-img" alt="hero" />
+        <img src={heroImg} id="hero-img" alt="hero" />
         <div id="hero-title">
           <h1>Welcome to Cookie Station</h1>
           <p>A place to save good memories and spread happiness to others</p>
+          <br />
+            <Link to="/signup" className="main-btn">
+              Get Started
+            </Link>
         </div>
       </div>
       <div className="two-col-sec">
@@ -27,16 +33,21 @@ function Home() {
           </p>
         </span>
         <span className="col-right">
-          {/* <img src={cookie} className="hero-img" /> */}
+        <img className="illustration" src={introImg}></img>
         </span>
       </div>
       <div className="two-col-sec">
-        <h2>How can you use this</h2>
-        <p>
-          Create a Cookie Jar and keep it in your shelf or send it to others so
-          they can share the memories with you. <br />
-          When you have a bad day, read the cookies in the jar.
+        <span className="col-left">
+            <img className="illustration" src={guideImg}></img>
+        </span>
+        <span className="col-right">
+          <h2>How can you use this</h2>
+          <p>
+            Create a Cookie Jar and keep it in your shelf or send it to others so
+            they can share the memories with you. <br />
+            When you have a bad day, read some cookies.
         </p>
+        </span>
       </div>
       <div className="cta-sec">
         <img src={jartrio} id="cta" alt="hehe" />

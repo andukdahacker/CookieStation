@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../styles/navbar.css";
 import { Link } from "react-router-dom";
-import cookie from "../image/cookie.png";
+import cookie from "../image/cookie-logo.png";
 
 function Navbar() {
   const [isAuth, setIsAuth] = useState(false);
@@ -35,7 +35,7 @@ function Navbar() {
         <Link to="/" className="title">
           <img id="site-logo" src={cookie} alt="cookie-logo" />
           <span id="site-title">
-            <b>Cookie</b> Station
+            <b>Cookie Station</b>
           </span>
         </Link>
         <div className="main-nav">
