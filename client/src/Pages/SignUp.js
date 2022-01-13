@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import TextError from "../components/TextError";
 import * as Yup from "yup";
 import "../styles/SignUp.css";
@@ -72,10 +72,10 @@ function SignUp() {
         onSubmit={onSubmit}
       >
         <div className="one-col-sec">
-        <h1>Sign Up</h1>
+        <h1 className ="pageTitle">Sign Up</h1>
           <Form className="form">
             <label htmlFor="username">
-              Username{" "}
+              {" "}
               {validationErrors ? (
                 <div>{validationErrors.Errors.username}</div>
               ) : (
@@ -132,6 +132,9 @@ function SignUp() {
               {isLoading ? <div>Loading</div> : <div>Sign up</div>}
             </button>
           </Form>
+          <p>
+            Already have an account? <Link to="/login">Sign in to your account.</Link>
+          </p>
           {/* <button>Sign up with Facebook</button>
           <button>Sign up in Google</button> */}
         </div>

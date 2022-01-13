@@ -20,10 +20,13 @@ function LogOut() {
   };
   return (
     <>
-      <div className="mainlogout">
-        <div>Are you sure you want to log out?</div>
-        <button onClick={() => logUserOut()}>Yes</button>
-        <button onClick={() => history.go(-1)}>No</button>
+      <div className="one-col-sec">
+        <h1>Are you sure you want to log out?</h1>
+        <span>
+        <button className="main-btn" onClick={() => history.go(-1)}>No</button>
+        <button className="main-btn" onClick={() => logUserOut()}>Yes</button>
+        </span>
+        
       </div>
     </>
   );

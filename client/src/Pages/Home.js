@@ -17,7 +17,7 @@ function Home() {
           <h1>Welcome to Cookie Station</h1>
           <p>A place to save good memories and spread happiness to others</p>
           <br />
-            <Link to="/signup" className="main-btn">
+            <Link to="/login" className="main-btn">
               Get Started
             </Link>
         </div>
