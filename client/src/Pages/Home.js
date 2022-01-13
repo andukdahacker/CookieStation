@@ -3,21 +3,19 @@ import "../styles/Home.css";
 import jartrio from "../image/trio-jar.png";
 import { Link } from "react-router-dom";
 import Navbar from "../components/navbar";
-
+import Footer from "../components/footer";
 import introImg from "../image/intro-img.png";
 import guideImg from "../image/guide-img.png";
-import heroImg from "../image/cookiewall.jpg";
 function Home() {
   return (
     <>
       <Navbar />
       <div className="welcome-sec">
-        <img src={heroImg} id="hero-img" alt="hero" />
         <div id="hero-title">
           <h1>Welcome to Cookie Station</h1>
           <p>A place to save good memories and spread happiness to others</p>
           <br />
-            <Link to="/login" className="main-btn">
+            <Link to="/shelf" className="main-btn">
               Get Started
             </Link>
         </div>
@@ -56,6 +54,7 @@ function Home() {
           Create Jar
         </Link>
       </div>
+      <Footer />
     </>
   );
 }

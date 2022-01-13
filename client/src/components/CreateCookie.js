@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import "../styles/Createcookie.css";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import cookie from "../image/cookie.png"
 
 function CreateCookie() {
   const { id } = useParams();
@@ -42,14 +43,21 @@ function CreateCookie() {
   });
   return (
     <>
-      <div className="maincreatecookie">
+      
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={onSubmit}
         >
           {({ setFieldValue }) => (
-            <Form>
+            <div className="two-col-sec">
+              <div className="col-left">
+            <img src={cookie} alt="cookie" className="col-img" />
+          </div>
+          <div className="col-right">
+            <Form className="form">
+              
+              <h1 className="formTitle">Put in a Cookie</h1>
               <label htmlFor="cookieTitle">Cookie Title</label>
               <Field type="text" id="cookieTitle" name="cookieTitle" />
               <ErrorMessage name="cookieTitle" component={TextError} />
@@ -67,13 +75,14 @@ function CreateCookie() {
                   setFieldValue("cookieImage", event.target.files[0]);
                 }}
               />
-              <button type="submit">
+              <button className="main-btn" type="submit">
                 {isLoading ? <div>Loading</div> : <div>Create</div>}
               </button>
             </Form>
+            </div>
+            </div>
           )}
-        </Formik>
-      </div>
+        </Formik>      
     </>
   );
 }

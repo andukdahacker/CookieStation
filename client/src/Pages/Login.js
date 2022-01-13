@@ -60,7 +60,7 @@ function Login() {
         onSubmit={onSubmit}
       >
         <div className="one-col-sec">
-          <h1>Login</h1>
+          <h1 className ="pageTitle">Login</h1>
           <Form className="form">
             <label htmlFor="email">
               {" "}
@@ -107,7 +107,6 @@ function Login() {
           <button>Login in Google</button> */}
         </div>
       </Formik>
-      <Footer />
     </>
   );
 }

@@ -5,7 +5,7 @@ import CreateJar from "../components/CreateJar";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Navbar from "../components/navbar";
-import cookie from "../image/cookie.png";
+import cookieJar from "../image/cookie-jar.png";
 Modal.setAppElement("#root");
 
 function Shelf() {
@@ -30,9 +30,8 @@ function Shelf() {
   return (
     <>
       <Navbar />
-      <div className="shelf-container">
         <div className="jar-welcome">
-          <h1>Welcome bitch</h1>
+          <h1>Welcome to your Shelf</h1>
         </div>
         <div className="quick-nav">
           <div>
@@ -42,9 +41,11 @@ function Shelf() {
             Create jar
           </button>
         </div>
-        <Modal isOpen={jarForm} onRequestClose={() => setJarForm(false)}>
-          <CreateJar />
-          <button onClick={() => setJarForm(false)}>X</button>
+        <Modal className="modal-form" isOpen={jarForm} onRequestClose={() => setJarForm(false)}>
+          <div className="close-modal">
+          <button className="main-btn" onClick={() => setJarForm(false)}>X</button>
+          </div>
+          <CreateJar />          
         </Modal>
         {isLoading ? (
           <div>Loading...</div>
@@ -55,14 +56,13 @@ function Shelf() {
             return (
               <div key={id} className="grid-list">
                 <Link to={`/shelf/${val._id}`} key={id} className="list-item">
-                  <img src={cookie} alt="cookie" className="list-item-img" />
+                  <img src={cookieJar} alt="cookie" className="list-item-img" />
                   <p>{val.jarName}</p>
                 </Link>
               </div>
             );
           })
         )}
-      </div>
     </>
   );
 }

@@ -64,70 +64,82 @@ function Jar() {
   return (
     <>
       <Navbar />
-      <div className="mainjar">
-        {isLoading ? (
-          <div>Loading...</div>
-        ) : error ? (
-          <div>Error...</div>
-        ) : (
-          <div className="main">
-            <h1>{jarData.jarName}</h1>
-            {cookieData
-              .filter((cookie) => cookie.read === false)
-              .map((val, id) => {
-                return (
-                  <div key={id} className="jar">
-                    {access ? (
-                      <Link
-                        to={`/cookies/${val._id}`}
-                        onClick={() => updateCookieToRead(val._id)}
-                      >
-                        <img src={cookie} alt="cookie" />
-                      </Link>
-                    ) : (
-                      <div>
-                        <img src={cookie} alt="cookie" />
-                      </div>
-                    )}
-
-                    <span>{val.cookieTitle}</span>
-                  </div>
-                );
-              })}
-          </div>
-        )}
-        <button
-          onClick={() => {
-            setCookieForm(true);
-          }}
-        >
-          Create cookie
-        </button>
+      <div>
+        <h1 className="jar-welcome">Open a Cookie in {jarData.jarName}</h1>
+        <div className="quick-nav">
+        <Link to="/shelf" className="main-btn">
+              Back
+            </Link>
         {access ? (
           <Link to={`/readcookies/${id}`}>Read List</Link>
         ) : (
           <div></div>
         )}
-        <Modal
+        {access ? (
+          <button className="sub-btn" onClick={() => deleteJar()}>Delete this Jar</button>
+        ) : (
+          <div></div>
+        )}
+        <button
+            className="main-btn"
+            onClick={() => {
+            setCookieForm(true);
+          }}
+        >
+          Create cookie
+        </button>
+        </div>
+        {isLoading ? (
+          <div>Loading...</div>
+        ) : error ? (
+          <div>Error...</div>
+        ) : (
+          <div className="grid-list">
+            {cookieData
+              .filter((cookie) => cookie.read === false)
+              .map((val, id) => {
+                return (
+                  <div key={id} className="list-item">
+                    {access ? (
+                      <Link
+                        to={`/cookies/${val._id}`}
+                        onClick={() => updateCookieToRead(val._id)}
+                      >
+                        <img className="list-item-img"src={cookie} alt="cookie" />
+                      </Link>
+                    ) : (
+                      <div>
+                        <img className="list-item-img" src={cookie} alt="cookie" />
+                      </div>
+                    )}
+
+                    <p>{val.cookieTitle}</p>
+                  </div>
+                );
+              })}
+          </div>
+        )}
+        
+        <Modal className="modal-form"
           isOpen={cookieForm}
           onRequestClose={() => {
             setCookieForm(false);
           }}
         >
-          <CreateCookie />
-          <button
+          <div className="close-modal">
+          <button 
+          className="main-btn"
             onClick={() => {
               setCookieForm(false);
             }}
           >
             X
           </button>
+          </div>
+          <CreateCookie />
+          
         </Modal>
-        {access ? (
-          <button onClick={() => deleteJar()}>Delete</button>
-        ) : (
-          <div></div>
-        )}
+        
       </div>
     </>
   );

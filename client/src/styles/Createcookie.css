@@ -1,16 +1,23 @@
-.maincreatecookie {
-  font-family: "Poppins", sans-serif;
-  font-size: xx-large;
-  font-weight: 700;
-  background-color: #cfac82;
-  width: 100%;
-  height: calc(100vh - 86px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+.col-left{
+  display:flex;
+  flex-direction:column;
+  max-width:50%;
+  padding: 5em 10em 5em 10em;
+  align-items:left;
 }
-
-.error {
-  color: red;
+.col-img{
+  display:flex;
+  width: 100%;
+  align-content: left;
+}
+::-webkit-file-upload-button{
+  font-size: 1.1em;
+  font-weight: 600;
+  background-color: #ffe9b0;
+  border: none;
+  border-radius: 50px;
+  color: #401f00;
+}
+::-webkit-file-upload-button:hover{
+  cursor: pointer;
 }

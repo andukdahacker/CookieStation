@@ -89,7 +89,7 @@ function SignUp() {
               name="username"
               className="formInput"
             />
-            <label htmlFor="Email">
+            <label htmlFor="email">
               {" "}
               {validationErrors ? (
                 <div>{validationErrors.Errors.email}</div>
@@ -99,13 +99,13 @@ function SignUp() {
             </label>
             <Field
               type="text"
-              placeholder="your email"
+              placeholder="Email"
               id="email"
               name="email"
               className="formInput"
             />
             <ErrorMessage name="email" component={TextError} />
-            <label htmlFor="Password">
+            <label htmlFor="password">
               {" "}
               {validationErrors ? (
                 <div>{validationErrors.Errors.password}</div>
@@ -115,7 +115,7 @@ function SignUp() {
             </label>
             <Field
               type="text"
-              placeholder="your password"
+              placeholder="Password"
               id="password"
               name="password"
             />
@@ -139,7 +139,6 @@ function SignUp() {
           <button>Sign up in Google</button> */}
         </div>
       </Formik>
-      <Footer />
     </>
   );
 }

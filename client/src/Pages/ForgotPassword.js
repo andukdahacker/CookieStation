@@ -43,18 +43,21 @@ function ForgotPassword() {
         validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
-        <div className="mainforgotpassword">
-          <Form>
-            <label htmlFor="email">Email</label>
+        <div className="one-col-sec">
+          <h1 className ="pageTitle">Forgot Password</h1>
+          <Form className="form">
+            
+            <label htmlFor="email"></label>
             <div>{status}</div>
             <Field
               type="text"
-              placeholder="your email"
+              placeholder="Enter your email"
               id="email"
               name="email"
             />
             <ErrorMessage name="email" component={TextError} />
-            <button type="submit">
+            
+            <button type="submit" className="main-btn">
               {isLoading ? <div>Loading</div> : <div>Submit</div>}
             </button>
           </Form>

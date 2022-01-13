@@ -45,7 +45,8 @@ function Cookie() {
   return (
     <>
       <Navbar />
-      <div className="maincookie">
+      <h1>Cookies List</h1>
+      <div className="grid-list">
         {isLoading ? (
           <div>Loading</div>
         ) : access ? (

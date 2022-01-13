@@ -43,22 +43,21 @@ function CreateJar() {
           <div className="col-left">
             <img src={bottlewnap} alt="bottlewnap" className="col-img" />
           </div>
-          {/* <div className="col-right"> */}
           <Form className="col-right">
-            <label htmlFor="jarName">Name your Jar</label>
+            <h1 className="formTitle">Create A Jar</h1>
+            <label htmlFor="jarName"></label>
             <Field
               className="createjar-input"
               type="text"
-              placeholder="name your jar..."
+              placeholder="Give this jar a name..."
               id="jarName"
               name="jarName"
             />
             <ErrorMessage name="jarName" component={TextError} />
-            <button type="submit">
+              <button className="main-btn" type="submit">
               {isLoading ? <div>Loading</div> : <div>Next</div>}
             </button>
           </Form>
-          {/* </div> */}
         </div>
       </Formik>
     </>
