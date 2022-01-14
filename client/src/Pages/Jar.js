@@ -67,16 +67,24 @@ function Jar() {
       <div>
         <h1 className="jar-welcome">Open a Cookie in {jarData.jarName}</h1>
         <div className="quick-nav">
+          <div className="col-right">
         <Link to="/shelf" className="main-btn">
               Back
             </Link>
+            </div>
+        <div className="col-left">
+        
         {access ? (
-          <Link to={`/readcookies/${id}`}>Read List</Link>
+          <span>
+        <Link to={`/readcookies/${id}`}>Read List</Link>
+        </span>
         ) : (
           <div></div>
         )}
         {access ? (
+             <span>
           <button className="sub-btn" onClick={() => deleteJar()}>Delete this Jar</button>
+          </span>
         ) : (
           <div></div>
         )}
@@ -88,6 +96,7 @@ function Jar() {
         >
           Create cookie
         </button>
+        </div>
         </div>
         {isLoading ? (
           <div>Loading...</div>

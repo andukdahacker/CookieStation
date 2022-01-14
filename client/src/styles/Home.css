@@ -1,7 +1,7 @@
 .welcome-sec{
     background-image: url("../image/cookiewall.jpg");
     background-repeat: repeat;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(66, 38, 0, 0.5);
     background-blend-mode: darken;
     height: 35em;
     width: 100%;

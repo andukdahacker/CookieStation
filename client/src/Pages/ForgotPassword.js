@@ -48,7 +48,7 @@ function ForgotPassword() {
           <Form className="form">
             
             <label htmlFor="email"></label>
-            <div>{status}</div>
+            
             <Field
               type="text"
               placeholder="Enter your email"
@@ -61,6 +61,7 @@ function ForgotPassword() {
               {isLoading ? <div>Loading</div> : <div>Submit</div>}
             </button>
           </Form>
+          <p>{status}</p>
         </div>
       </Formik>
     </>

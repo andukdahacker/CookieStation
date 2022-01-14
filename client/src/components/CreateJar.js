@@ -55,7 +55,7 @@ function CreateJar() {
             />
             <ErrorMessage name="jarName" component={TextError} />
               <button className="main-btn" type="submit">
-              {isLoading ? <div>Loading</div> : <div>Next</div>}
+              {isLoading ? <div>Loading</div> : <div>Create</div>}
             </button>
           </Form>
         </div>

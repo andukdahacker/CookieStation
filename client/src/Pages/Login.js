@@ -63,12 +63,6 @@ function Login() {
           <h1 className ="pageTitle">Login</h1>
           <Form className="form">
             <label htmlFor="email">
-              {" "}
-              {validationErrors ? (
-                <div>{validationErrors.Errors.email}</div>
-              ) : (
-                <div></div>
-              )}
             </label>
             <Field
               type="text"
@@ -77,14 +71,16 @@ function Login() {
               name="email"
               className="formInput"
             />
-            <ErrorMessage name="email" component={TextError} />
-            <label htmlFor="password">
+            <p>  
               {" "}
               {validationErrors ? (
-                <div>{validationErrors.Errors.password}</div>
+                <div>{validationErrors.Errors.email}</div>
               ) : (
                 <div></div>
               )}
+            </p>
+            <ErrorMessage name="email" component={TextError} />
+            <label htmlFor="password">
             </label>
             <Field
               type="text"
@@ -94,7 +90,14 @@ function Login() {
               className="formInput"
             />
             <ErrorMessage name="password" component={TextError} />
-
+            <p>
+              {" "}
+              {validationErrors ? (
+                <div>{validationErrors.Errors.password}</div>
+              ) : (
+                <div></div>
+              )}
+            </p>
             <button type="submit" className="main-btn">
               {isLoading ? <div>Loading</div> : <div>Login</div>}
             </button>

@@ -46,19 +46,21 @@ function ResetPassword() {
         validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
-        <div className="mainresetpassword">
-          <Form>
-            <label htmlFor="password">Password</label>
+        <div className="one-col-sec">
+          <h1>Enter your new password </h1>
+          <Form className="form">
+            <label htmlFor="password"></label>
             <Field
               type="text"
-              placeholder="new password"
+              placeholder="New Password"
               id="password"
               name="password"
             />
             <ErrorMessage name="password" component={TextError} />
-            <button type="submit">
+            <button className="main-btn" type="submit">
               {isLoading ? <div>Loading</div> : <div>Submit</div>}
             </button>
+            <p>{status}</p>
           </Form>
         </div>
       </Formik>

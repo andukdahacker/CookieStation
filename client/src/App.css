@@ -134,7 +134,23 @@ textarea {
   color: #401f00;
   margin: 0.5em;
 }
-
+.main-btn:hover{
+  cursor: pointer;
+}
+.sub-btn{
+  font-size: 16px;
+  font-weight: 600;
+  background-color: #AE804A;
+  border: none;
+  border-radius: 50px;
+  padding: 7px 17px;
+  text-decoration: none;
+  color: white;
+  margin: 0.5em;
+}
+.sub-btn:hover{
+  cursor: pointer;
+}
 .grid-list{
   display: flex;
   flex-direction: row;
@@ -167,19 +183,7 @@ textarea {
   flex-direction: column;
   align-items: center;
 }
-.main-btn:hover{
-  cursor: pointer;
-}
-.sub-btn{
-  height: 42px;
-  width: fit-content;
-  border-radius: 20px;
-  padding: 5px;
-  font-weight:bold;
-  margin: 1em;
-  color: white;
-  background: #AE804A;
-}
+
 .modal-form{    
   position: absolute;
   inset: 40px;
