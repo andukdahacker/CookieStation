@@ -29,37 +29,37 @@ function ReadList() {
       });
   }, [jarDataAPI]);
 
+  
+
   return (
     <>
       <Navbar />
       {access ? (
-        <div className="mainreadlist">
+        <div >
           {isLoading ? (
-            <div>Loading...</div>
+            <div className="one-col-sec">Loading...</div>
           ) : error ? (
-            <div>Error</div>
+            <div className="one-col-sec" >Error</div>
           ) : (
-            <div>
-              <h2>{jarData.jarName}</h2>
+            <div className="pin-container">
               {cookieData
-                .filter((cookie) => cookie.read === true)
+                // .filter((cookie) => cookie.read === true)
                 .map((val, id) => {
                   return (
-                    <div key={id} className="pin">
                       <Pin
+                        key={id} 
                         cookieID={val._id}
                         image={val.cookieImage}
                         title={val.cookieTitle}
                         message={val.cookieContent}
                       />
-                    </div>
                   );
                 })}
             </div>
           )}
         </div>
       ) : (
-        <div className="mainreadlist">You shall not pass</div>
+        <div className="one-col-sec">You shall not pass</div>
       )}
     </>
   );

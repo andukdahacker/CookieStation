@@ -62,7 +62,7 @@ input{
 }
 input[type="file"]{
 
-  padding-top: 1em;
+  padding-top: 0.5em;
 }
 textarea {
   height: 15em;
@@ -133,6 +133,7 @@ textarea {
   text-decoration: none;
   color: #401f00;
   margin: 0.5em;
+  width: fit-content;
 }
 .main-btn:hover{
   cursor: pointer;
@@ -198,4 +199,13 @@ textarea {
 .close-modal{
   display: flex;
   justify-content: flex-end;
+}
+.pin-container{
+    margin:0;
+    padding: 0;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 250px);
+    grid-auto-rows: 10px;
+    justify-content: center;
 }

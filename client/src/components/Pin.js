@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 import "../styles/Pin.css";
 
 function Pin(props) {
+
   return (
     <>
-      <div className="mainpin">
+      <div className={`pin ${props.size}`}>
         <Link to={`/cookies/${props.cookieID}`}>
           <img src={props.image} alt="" />
           <h3 className="pin-title">{props.title}</h3>
@@ -15,5 +16,4 @@ function Pin(props) {
     </>
   );
 }
-
 export default Pin;

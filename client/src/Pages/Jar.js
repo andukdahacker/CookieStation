@@ -6,6 +6,8 @@ import CreateCookie from "../components/CreateCookie";
 import "../styles/Jar.css";
 import cookie from "../image/cookie.png";
 import Navbar from "../components/navbar";
+import Pin from "../components/Pin";
+
 function Jar() {
   const [cookieForm, setCookieForm] = useState(false);
   const [jarData, setJarData] = useState([]);
@@ -64,23 +66,16 @@ function Jar() {
   return (
     <>
       <Navbar />
-      <div>
+      <div> 
         <h1 className="jar-welcome">Open a Cookie in {jarData.jarName}</h1>
         <div className="quick-nav">
-          <div className="col-right">
+          <div className="col-right" id="quick-right">
         <Link to="/shelf" className="main-btn">
               Back
             </Link>
             </div>
-        <div className="col-left">
+        <div className="col-left" id="quick-left">
         
-        {access ? (
-          <span>
-        <Link to={`/readcookies/${id}`}>Read List</Link>
-        </span>
-        ) : (
-          <div></div>
-        )}
         {access ? (
              <span>
           <button className="sub-btn" onClick={() => deleteJar()}>Delete this Jar</button>
@@ -99,31 +94,42 @@ function Jar() {
         </div>
         </div>
         {isLoading ? (
-          <div>Loading...</div>
+          <h1>Cookies are coming...</h1>
         ) : error ? (
-          <div>Error...</div>
+          <h1>The jar is broken on the way. Try refreshing this page</h1>
         ) : (
-          <div className="grid-list">
+          
+
+          <div className="pin-container">
             {cookieData
-              .filter((cookie) => cookie.read === false)
+              // .filter((cookie) => cookie.read === false)
               .map((val, id) => {
                 return (
-                  <div key={id} className="list-item">
-                    {access ? (
-                      <Link
-                        to={`/cookies/${val._id}`}
-                        onClick={() => updateCookieToRead(val._id)}
-                      >
-                        <img className="list-item-img"src={cookie} alt="cookie" />
-                      </Link>
-                    ) : (
-                      <div>
-                        <img className="list-item-img" src={cookie} alt="cookie" />
-                      </div>
-                    )}
+             
+                      <Pin
+                        key={id} 
+                        cookieID={val._id}
+                        image={val.cookieImage}
+                        title={val.cookieTitle}
+                        message={val.cookieContent}
+                        size={val.cookieContent.length >= 200 ? "large" : "medium"}
+                      />
+                  // <div key={id} className="list-item">
+                  //   {access ? (
+                  //     <Link
+                  //       to={`/cookies/${val._id}`}
+                  //       onClick={() => updateCookieToRead(val._id)}
+                  //     >
+                  //       <img className="list-item-img"src={cookie} alt="cookie" />
+                  //     </Link>
+                  //   ) : (
+                  //     <div>
+                  //       <img className="list-item-img" src={cookie} alt="cookie" />
+                  //     </div>
+                  //   )}
 
-                    <p>{val.cookieTitle}</p>
-                  </div>
+                  //   <p>{val.cookieTitle}</p>
+                  // </div>
                 );
               })}
           </div>

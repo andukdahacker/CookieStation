@@ -1,10 +1,18 @@
-.mainpin {
-  width: 30%px;
-  height: fit-content;
-  background: yellowgreen;
-  border-radius: 20%;
+.pin{
+  margin:15px 10px;
+  padding: 0;
+  border-radius: 15px;
+  background-color: red;
 }
-
+#small{
+   grid-row-end: span 26; /*each card is made of 26 rows of the grid, each row spans 10px */
+}
+.medium{
+  grid-row-end: span 36;
+}
+.large{
+  grid-row-end: span 45;
+}
 .pin-title {
   color: red;
 }

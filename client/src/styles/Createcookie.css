@@ -1,15 +1,3 @@
-.col-left{
-  display:flex;
-  flex-direction:column;
-  max-width:50%;
-  padding: 5em 10em 5em 10em;
-  align-items:left;
-}
-.col-img{
-  display:flex;
-  width: 100%;
-  align-content: left;
-}
 ::-webkit-file-upload-button{
   font-size: 1.1em;
   font-weight: 600;

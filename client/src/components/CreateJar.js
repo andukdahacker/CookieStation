@@ -43,7 +43,7 @@ function CreateJar() {
           <div className="col-left">
             <img src={bottlewnap} alt="bottlewnap" className="col-img" />
           </div>
-          <Form className="col-right">
+          <Form className="col-right" id="form-right">
             <h1 className="formTitle">Create A Jar</h1>
             <label htmlFor="jarName"></label>
             <Field

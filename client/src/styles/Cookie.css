@@ -1,0 +1,27 @@
+section{
+    position: relative;
+    width: 100%;
+    min-height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+.swiper-container{
+
+}
+.swiper-wrapper{
+
+}
+.swiper-slide{
+    background-position: center;
+    background-size: cover;
+    background-color: rosybrown;
+    width: 50em;
+    height: 50em;
+}
+.slide-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

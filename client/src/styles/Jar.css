@@ -1,3 +1,8 @@
-.col-left{
+#quick-left{
     flex-direction: row;
+    justify-content: center;
+}
+#quick-right{
+    flex-direction: row;
+    justify-content: center;
 }
