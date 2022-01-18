@@ -6,6 +6,8 @@ import CreateCookie from "../components/CreateCookie";
 import "../styles/Jar.css";
 import cookie from "../image/cookie.png";
 import Navbar from "../components/navbar";
+import Pin from "../components/Pin";
+
 function Jar() {
   const [cookieForm, setCookieForm] = useState(false);
   const [jarData, setJarData] = useState([]);
@@ -68,35 +70,29 @@ function Jar() {
         <h1 className="jar-welcome">Open a Cookie in {jarData.jarName}</h1>
         <div className="quick-nav">
           <div className="col-right">
-        <Link to="/shelf" className="main-btn">
+            <Link to="/shelf" className="main-btn">
               Back
             </Link>
-            </div>
-        <div className="col-left">
-        
-        {access ? (
-          <span>
-        <Link to={`/readcookies/${id}`}>Read List</Link>
-        </span>
-        ) : (
-          <div></div>
-        )}
-        {access ? (
-             <span>
-          <button className="sub-btn" onClick={() => deleteJar()}>Delete this Jar</button>
-          </span>
-        ) : (
-          <div></div>
-        )}
-        <button
-            className="main-btn"
-            onClick={() => {
-            setCookieForm(true);
-          }}
-        >
-          Create cookie
-        </button>
-        </div>
+          </div>
+          <div className="col-left">
+            {access ? (
+              <span>
+                <button className="sub-btn" onClick={() => deleteJar()}>
+                  Delete this Jar
+                </button>
+              </span>
+            ) : (
+              <div></div>
+            )}
+            <button
+              className="main-btn"
+              onClick={() => {
+                setCookieForm(true);
+              }}
+            >
+              Create cookie
+            </button>
+          </div>
         </div>
         {isLoading ? (
           <div>Loading...</div>
@@ -114,11 +110,19 @@ function Jar() {
                         to={`/cookies/${val._id}`}
                         onClick={() => updateCookieToRead(val._id)}
                       >
-                        <img className="list-item-img"src={cookie} alt="cookie" />
+                        <img
+                          className="list-item-img"
+                          src={cookie}
+                          alt="cookie"
+                        />
                       </Link>
                     ) : (
                       <div>
-                        <img className="list-item-img" src={cookie} alt="cookie" />
+                        <img
+                          className="list-item-img"
+                          src={cookie}
+                          alt="cookie"
+                        />
                       </div>
                     )}
 
@@ -126,29 +130,52 @@ function Jar() {
                   </div>
                 );
               })}
+            {cookieData
+              .filter((cookie) => cookie.read === true)
+              .map((val, id) => {
+                return (
+                  <div key={id} className="pin">
+                    {access ? (
+                      <Pin
+                        cookieID={val._id}
+                        image={val.cookieImage}
+                        title={val.cookieTitle}
+                        message={val.cookieContent}
+                      />
+                    ) : (
+                      <div key={id} className="list-item">
+                        <img
+                          className="list-item-img"
+                          src={cookie}
+                          alt="cookie"
+                        />
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
           </div>
         )}
-        
-        <Modal className="modal-form"
+
+        <Modal
+          className="modal-form"
           isOpen={cookieForm}
           onRequestClose={() => {
             setCookieForm(false);
           }}
         >
           <div className="close-modal">
-          <button 
-          className="main-btn"
-            onClick={() => {
-              setCookieForm(false);
-            }}
-          >
-            X
-          </button>
+            <button
+              className="main-btn"
+              onClick={() => {
+                setCookieForm(false);
+              }}
+            >
+              X
+            </button>
           </div>
           <CreateCookie />
-          
         </Modal>
-        
       </div>
     </>
   );
