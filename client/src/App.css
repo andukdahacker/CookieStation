@@ -33,11 +33,12 @@ body {
   justify-content: space-around;
   width: 100%;
 }
-h1, h2, a, p,label {
+h1, h2, h3, a, p,label {
   color: white;
   font-family: Poppins;
   margin-top: 0.5em;
   margin-bottom: 0.5em;
+  text-decoration: none;
 }
 span {
   font-family: Poppins;
@@ -101,9 +102,9 @@ textarea {
   flex-direction: row;
   align-items: center;
   justify-content:center;
-    align-content: center;
-    background: #131313;
-  }
+  align-content: center;
+  background: #131313;
+}
 .col-left{
   display:flex;
   flex-direction:column;

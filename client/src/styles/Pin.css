@@ -1,18 +1,40 @@
+.cookie-image{
+  width: 100%;
+  max-height: 10em;
+  border-radius: 10px;
+  overflow: hidden;
+}
 .pin{
   margin:15px 10px;
   padding: 0;
-  border-radius: 15px;
-  background-color: red;
+  background: #FFE9B0;
+  border-radius: 20px;
 }
-#small{
-   grid-row-end: span 26; /*each card is made of 26 rows of the grid, each row spans 10px */
+.pin-wrapper{
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+}
+.small{
+  /*each card is made of 26 rows of the grid, each row spans 10px */
+  grid-row-end: span 35; 
+}
+.cookie-pin{
+  grid-row-end: span 30; 
+  padding: 30px;
+  text-align: center;
 }
 .medium{
-  grid-row-end: span 36;
+grid-row-end: span 45;
 }
 .large{
-  grid-row-end: span 45;
+  grid-row-end: span 60;
+  
 }
-.pin-title {
-  color: red;
+.pin-content{
+  color: #131313;
+  overflow: hidden;
+}
+.pin:hover{
+  background: #A67C52;
 }

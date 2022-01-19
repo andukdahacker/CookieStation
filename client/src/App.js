@@ -8,7 +8,6 @@ import Contact from "./Pages/Contact";
 import SignUp from "./Pages/SignUp";
 import Jar from "./Pages/Jar";
 import Cookie from "./Pages/Cookie";
-import ReadList from "./Pages/ReadList";
 import LogOut from "./Pages/LogOut";
 import ForgotPassword from "./Pages/ForgotPassword";
 import ResetPassword from "./Pages/ResetPassword";
@@ -30,7 +29,6 @@ export default function App() {
             <Route exact path="/contact" component={Contact} />
             <Route exact path="/shelf/:id" component={Jar} />
             <Route exact path="/cookies/:id" component={Cookie} />
-            <PrivateRoute exact path="/readcookies/:id" component={ReadList} />
             <Route exact path="/logout" component={LogOut} />
             <Route
               exact

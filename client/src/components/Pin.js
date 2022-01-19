@@ -8,9 +8,11 @@ function Pin(props) {
     <>
       <div className={`pin ${props.size}`}>
         <Link to={`/cookies/${props.cookieID}`}>
-          <img src={props.image} alt="" />
-          <h3 className="pin-title">{props.title}</h3>
-          <span>{props.message}</span>
+          <div className="pin-wrapper">
+            <img className="cookie-image" src={props.image} alt="cookie-image" />
+            <h3 className="pin-content">{props.title}</h3>
+            <p className="pin-content">{props.message}</p>
+          </div>
         </Link>
       </div>
     </>

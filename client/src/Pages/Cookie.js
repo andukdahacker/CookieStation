@@ -57,7 +57,7 @@ function Cookie() {
         ) : access ? (
          <div>
            <div className="quick-nav">
-        <button className="main-btn"> Back</button>
+        <button className="main-btn" onClick={() => history.goBack()} > Back</button>
         <button className="main-btn" onClick={() => deleteCookie()}>
           {isLoading ? "Deleting..." : "Delete"}
         </button>

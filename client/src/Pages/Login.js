@@ -51,6 +51,12 @@ function Login() {
     }
   }, [history]);
 
+  const [passwordVisibility, setPasswordVisibility] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisibility(passwordVisibility ? false : true);
+  };
+
   return (
     <>
       <Navbar />
@@ -60,10 +66,9 @@ function Login() {
         onSubmit={onSubmit}
       >
         <div className="one-col-sec">
-          <h1 className ="pageTitle">Login</h1>
+          <h1 className="pageTitle">Login</h1>
           <Form className="form">
-            <label htmlFor="email">
-            </label>
+            <label htmlFor="email"></label>
             <Field
               type="text"
               placeholder="Email"
@@ -71,7 +76,7 @@ function Login() {
               name="email"
               className="formInput"
             />
-            <p>  
+            <p>
               {" "}
               {validationErrors ? (
                 <div>{validationErrors.Errors.email}</div>
@@ -80,15 +85,18 @@ function Login() {
               )}
             </p>
             <ErrorMessage name="email" component={TextError} />
-            <label htmlFor="password">
-            </label>
+            <label htmlFor="password"></label>
             <Field
-              type="text"
+              type={passwordVisibility ? "text" : "password"}
               placeholder="Password"
               id="password"
               name="password"
+              autoComplete="off"
               className="formInput"
             />
+            <button onClick={togglePasswordVisibility}>
+              <i className="fas fa-eye"></i>
+            </button>
             <ErrorMessage name="password" component={TextError} />
             <p>
               {" "}

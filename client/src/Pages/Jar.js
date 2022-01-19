@@ -98,63 +98,85 @@ function Jar() {
         ) : error ? (
           <h1>The jar is broken on the way. Try refreshing this page</h1>
         ) : (
-          
-
           <div className="pin-container">
             {cookieData
-              // .filter((cookie) => cookie.read === false)
+              .filter((cookie) => cookie.read === false)
               .map((val, id) => {
                 return (
-             
-                      <Pin
-                        key={id} 
+                  <div key={id} className={`pin cookie-pin`}>
+                    {access ? (
+                      <Link
+                        to={`/cookies/${val._id}`}
+                        onClick={() => updateCookieToRead(val._id)}
+                      >
+                        <img
+                          className="list-item-img"
+                          src={cookie}
+                          alt="cookie"
+                        />
+                        <p className="pin-content">{val.cookieTitle}</p>
+                      </Link>
+                    ) : (
+                      <div className={`pin small`}>
+                        <img
+                          className="list-item-img"
+                          src={cookie}
+                          alt="cookie"
+                        />
+                        <p className="pin-content">{val.cookieTitle}</p>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            {cookieData
+              .filter((cookie) => cookie.read === true)
+              .map((val, id) => {
+                return (
+                  <>
+                    {access ? (
+                      <Pin 
+                        key={id}
                         cookieID={val._id}
                         image={val.cookieImage}
                         title={val.cookieTitle}
                         message={val.cookieContent}
-                        size={val.cookieContent.length >= 200 ? "large" : "medium"}
+                        size={val.cookieContent.length <= 25 ? "small" : val.cookieContent.length > 100 ? "large" : "medium"}
                       />
-                  // <div key={id} className="list-item">
-                  //   {access ? (
-                  //     <Link
-                  //       to={`/cookies/${val._id}`}
-                  //       onClick={() => updateCookieToRead(val._id)}
-                  //     >
-                  //       <img className="list-item-img"src={cookie} alt="cookie" />
-                  //     </Link>
-                  //   ) : (
-                  //     <div>
-                  //       <img className="list-item-img" src={cookie} alt="cookie" />
-                  //     </div>
-                  //   )}
-
-                  //   <p>{val.cookieTitle}</p>
-                  // </div>
+                    ) : (
+                      <div key={id} className="list-item">
+                        <img
+                          className="list-item-img"
+                          src={cookie}
+                          alt="cookie"
+                        />
+                      </div>
+                    )}
+                  </>
                 );
               })}
           </div>
         )}
-        
-        <Modal className="modal-form"
+
+        <Modal
+          className="modal-form"
           isOpen={cookieForm}
           onRequestClose={() => {
             setCookieForm(false);
           }}
         >
           <div className="close-modal">
-          <button 
-          className="main-btn"
-            onClick={() => {
-              setCookieForm(false);
-            }}
-          >
-            X
-          </button>
+            <button
+              className="main-btn"
+              onClick={() => {
+                setCookieForm(false);
+              }}
+            >
+              X
+            </button>
           </div>
           <CreateCookie />
-          
         </Modal>
-        
       </div>
     </>
   );
