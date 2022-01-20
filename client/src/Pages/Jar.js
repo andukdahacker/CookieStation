@@ -48,7 +48,17 @@ function Jar() {
         setError(true);
       });
   };
+  const [copied, setCopied] = useState(false);
 
+  const copy = () => {
+    const el = document.createElement('input');
+    el.value = window.location.href;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    setCopied(true);
+  }
   const deleteJar = () => {
     setIsLoading(true);
     axios
@@ -70,9 +80,14 @@ function Jar() {
         <h1 className="jar-welcome">Open a Cookie in {jarData.jarName}</h1>
         <div className="quick-nav">
           <div className="col-right" id="quick-right">
-        <Link to="/shelf" className="main-btn">
-              Back
-            </Link>
+            {access ? 
+              <Link to="/shelf" className="link-btn">
+              {`<`} Back
+              </Link>
+              : null
+            }
+            <input type={'text'} readOnly value={window.location.href} />
+            <button className="main-btn" onClick={copy}>{!copied ? "Copy" : "Copied!"}</button>
             </div>
         <div className="col-left" id="quick-left">
         
@@ -117,7 +132,7 @@ function Jar() {
                         <p className="pin-content">{val.cookieTitle}</p>
                       </Link>
                     ) : (
-                      <div className={`pin small`}>
+                      <div key={id} className={`pin cookie-pin`}>
                         <img
                           className="list-item-img"
                           src={cookie}
@@ -144,13 +159,14 @@ function Jar() {
                         size={val.cookieContent.length <= 25 ? "small" : val.cookieContent.length > 100 ? "large" : "medium"}
                       />
                     ) : (
-                      <div key={id} className="list-item">
-                        <img
-                          className="list-item-img"
-                          src={cookie}
-                          alt="cookie"
-                        />
-                      </div>
+                      <div key={id} className={`pin cookie-pin`}>
+                      <img
+                        className="list-item-img"
+                        src={cookie}
+                        alt="cookie"
+                      />
+                      <p className="pin-content">{val.cookieTitle}</p>
+                    </div>
                     )}
                   </>
                 );

@@ -119,6 +119,7 @@ function SignUp() {
                 <div></div>
               )}
             </label>
+            <div  className="passwordField">
             <Field
               type={passwordVisibility ? "text" : "password"}
               placeholder="Password"
@@ -126,9 +127,10 @@ function SignUp() {
               name="password"
               autoComplete="off"
             />
-            <button onClick={togglePasswordVisibility}>
+            <div className="hidePassword" onClick={togglePasswordVisibility}>
               <i className="fas fa-eye"></i>
-            </button>
+            </div>
+            </div>
             <ErrorMessage name="password" component={TextError} />
             {/* <label htmlFor="passwordConfirmation">Confirm your password</label>
             <Field
@@ -144,7 +146,7 @@ function SignUp() {
           </Form>
           <p>
             Already have an account?{" "}
-            <Link to="/login">Sign in to your account.</Link>
+            <Link className="regular-link" to="/login">Sign in to your account</Link>
           </p>
           {/* <button>Sign up with Facebook</button>
           <button>Sign up in Google</button> */}

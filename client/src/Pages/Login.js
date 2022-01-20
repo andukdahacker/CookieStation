@@ -86,6 +86,7 @@ function Login() {
             </p>
             <ErrorMessage name="email" component={TextError} />
             <label htmlFor="password"></label>
+            <div className="passwordField">
             <Field
               type={passwordVisibility ? "text" : "password"}
               placeholder="Password"
@@ -94,9 +95,10 @@ function Login() {
               autoComplete="off"
               className="formInput"
             />
-            <button onClick={togglePasswordVisibility}>
+            <div className="hidePassword" onClick={togglePasswordVisibility}>
               <i className="fas fa-eye"></i>
-            </button>
+            </div>
+            </div>
             <ErrorMessage name="password" component={TextError} />
             <p>
               {" "}
@@ -110,9 +112,9 @@ function Login() {
               {isLoading ? <div>Loading</div> : <div>Login</div>}
             </button>
           </Form>
-          <Link to="/forgotpassword">Forgot password?</Link>
+          <Link className="regular-link" to="/forgotpassword">Forgot password?</Link>
           <p>
-            Don't have an account? <Link to="/signup">Create new account</Link>
+            Don't have an account? <Link className="regular-link" to="/signup">Create new account</Link>
           </p>
           {/* <button>Login with Facebook</button>
           <button>Login in Google</button> */}

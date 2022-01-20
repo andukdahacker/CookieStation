@@ -1,10 +1,14 @@
 #quick-left{
+    display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: center!important;
     padding: 0;
 }
 #quick-right{
+    display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: center!important;
     padding: 0;
 }

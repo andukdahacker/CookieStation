@@ -1,27 +1,71 @@
+a{
+    text-decoration: none;
+}
 section{
     position: relative;
     width: 100%;
-    min-height: 50vh;
+    min-height: 80vh;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
 }
 .swiper-container{
-
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 50px;
 }
 .swiper-wrapper{
-
+    padding-inline-start:0;
 }
 .swiper-slide{
-    background-position: center;
+    background-image: url('../image/message-frame.png');
+    border-radius: 20px;
+    background-position:center;
     background-size: cover;
-    background-color: rosybrown;
-    width: 50em;
-    height: 50em;
+    width: 900px!important;
+    height: 600px!important;
+    padding: 50px;
 }
-.slide-content{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.slide-content p{
+    color: #131313!important;
+    text-align: left;
+    height: 19em;
+    overflow-y: auto;
+}
+/* Track */
+.slide-content::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+::-webkit-scrollbar-thumb {
+
+    background: red!important; 
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: red!important; 
+  }
+.slide-content h2,.swiper-button-prev, .swiper-button-next {
+    text-align: center;
+    color: #131313!important;
+}
+.swiper-pagination-bullet-active{
+    background:#AE804A!important;
+}
+.slide-content-img{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    align-content: center;   
+    padding-top:5em ;
+    overflow-y: auto;
+}
+#image-slide{
+    background-image:none;
+  background-color: #ffe9b0;
 }
