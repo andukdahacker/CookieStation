@@ -132,7 +132,7 @@ function Jar() {
                         <p className="pin-content">{val.cookieTitle}</p>
                       </Link>
                     ) : (
-                      <div key={id} className={`pin cookie-pin`}>
+                      <div key={id} >
                         <img
                           className="list-item-img"
                           src={cookie}
