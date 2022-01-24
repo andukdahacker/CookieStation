@@ -3,13 +3,13 @@ import "../styles/Cookie.css";
 import { useParams, useHistory } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../components/navbar";
-import {Swiper, SwiperSlide} from 'swiper/react/swiper-react.js';
-import {Navigation, Pagination, EffectCoverflow} from 'swiper';
+import { Swiper, SwiperSlide } from "swiper/react/swiper-react.js";
+import { Navigation, Pagination, EffectCoverflow } from "swiper";
 
-import 'swiper/swiper.min.css';
-import 'swiper/swiper-bundle.min.css';
-import 'swiper/modules/navigation/navigation.min.css';
-import 'swiper/modules/effect-coverflow/effect-coverflow.min.css';
+import "swiper/swiper.min.css";
+import "swiper/swiper-bundle.min.css";
+import "swiper/modules/navigation/navigation.min.css";
+import "swiper/modules/effect-coverflow/effect-coverflow.min.css";
 
 function Cookie() {
   const [cookieData, setCookieData] = useState([]);
@@ -30,7 +30,6 @@ function Cookie() {
         setIsLoading(false);
       })
       .catch((err) => {
-        console.log(err);
         setError(true);
       });
   }, [getCookieDataAPI]);
@@ -45,7 +44,6 @@ function Cookie() {
       })
       .catch((err) => {
         setError(true);
-        console.log(err);
       });
   };
 
@@ -53,44 +51,46 @@ function Cookie() {
     <>
       <Navbar />
       {isLoading ? (
-          <div>Loading</div>
-        ) : access ? (
-         <div>
-           <div className="quick-nav">
-        <button className="main-btn" onClick={() => history.goBack()} > Back</button>
-        <button className="main-btn" onClick={() => deleteCookie()}>
-          {isLoading ? "Deleting..." : "Delete"}
-        </button>
+        <div>Loading</div>
+      ) : access ? (
+        <div>
+          <div className="quick-nav">
+            <button className="main-btn" onClick={() => history.goBack()}>
+              Back
+            </button>
+            <button className="main-btn" onClick={() => deleteCookie()}>
+              {isLoading ? "Deleting..." : "Delete"}
+            </button>
+          </div>
+          <section>
+            <Swiper
+              modules={[Navigation, Pagination, EffectCoverflow]}
+              effect={"coverflow"}
+              grabCursor={true}
+              centeredSlides={true}
+              slidesPerView={"auto"}
+              coverflowEffect={{
+                rotate: 0,
+                stretch: 0,
+                depth: 100,
+                modifier: 2,
+                slideShadows: true,
+              }}
+            >
+              <SwiperSlide className="swiper-slide">
+                <div className="slide-content">
+                  <h1>{cookieData.cookieTitle}</h1>
+                  <p>{cookieData.cookieContent}</p>
+                </div>
+              </SwiperSlide>
+              <SwiperSlide className="swiper-slide">
+                <div className="slide-content">
+                  <img src={cookieData.cookieImage} alt="img" />
+                </div>
+              </SwiperSlide>
+            </Swiper>
+          </section>
         </div>
-      <section>
-      <Swiper
-        modules={[Navigation,Pagination,EffectCoverflow]}
-        effect={'coverflow'}
-        grabCursor={true}
-        centeredSlides={true}
-        slidesPerView={'auto'}
-        coverflowEffect={{
-          "rotate":0,
-          "stretch":0,
-          "depth":100,
-          "modifier":2,
-          "slideShadows":true
-        }}
-      >
-        <SwiperSlide className="swiper-slide">        
-          <div className="slide-content">
-          <h1>{cookieData.cookieTitle}</h1>
-          <p>{cookieData.cookieContent}</p>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide className="swiper-slide">
-          <div className="slide-content">
-            <img src={cookieData.cookieImage} alt="img" />
-          </div>
-        </SwiperSlide>
-      </Swiper>
-      </section>
-      </div>
       ) : (
         <div>You are not allowed to read this Cookie</div>
       )}
